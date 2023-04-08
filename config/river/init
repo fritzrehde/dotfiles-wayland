@@ -1,0 +1,26 @@
+#!/bin/sh
+
+# === LOAD SETTINGS
+
+$HOME/.config/river/settings
+
+
+# === START PROCESSES
+
+# swhkd
+# swhks &
+# pkexec swhkd
+
+# dunst
+dunst &
+
+# waylock
+swayidle -w \
+    before-sleep "waylock -fork-on-lock -init-color 0x000000 -input-color 0x000000" \
+    timeout 600 "systemctl suspend" &
+
+# gammastep
+gammastep &
+
+# waybar
+waybar &

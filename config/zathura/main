@@ -1,0 +1,40 @@
+# settings
+set guioptions none
+set selection-clipboard clipboard
+
+# colors
+set statusbar-bg "#2e3440"
+set statusbar-fg "#d8dee9"
+set recolor-lightcolor "#2e3440"
+set recolor-darkcolor "#d8dee9"
+
+# bindings
+## normal mode
+map c recolor
+map r reload
+map R rotate
+map y exec 'zathura $FILE'
+
+### gui
+map m toggle_statusbar
+map F follow
+map f toggle_fullscreen
+
+### navigation
+map z snap_to_page
+map = zoom in
+
+## fullscreen mode
+map [fullscreen] c recolor
+map [fullscreen] r reload
+map [fullscreen] R rotate
+map [fullscreen] y exec 'zathura $FILE'
+
+## gui
+map [fullscreen] m toggle_statusbar
+map [fullscreen] F follow
+map [fullscreen] f toggle_fullscreen
+
+## navigation
+map [fullscreen] z snap_to_page
+map [fullscreen] = zoom in

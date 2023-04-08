@@ -1,0 +1,85 @@
+configuration {
+  modi: "window,run,drun";
+  font: "Bitstream Vera Sans Mono 10";
+  drun-display-format: "{name}";
+  show-icons: false;
+}
+
+* {
+  white: #d8dee9;
+  black: #000000;
+  lightgrey: #787C8F;
+  grey: #2e3440;
+  blue: #81a1c1;
+  yellow: #ebcb8b;
+  green: #AEC694;
+
+  fg: @white;
+  bg: @black;
+
+  bg-inputbar: @black;
+
+  fg-prompt: @grey;
+  bg-prompt: @green;
+
+  fg-selected: @white;
+  fg-unselected: @lightgrey;
+  bg-selected: @blue;
+
+  text-color: @fg;
+  background-color: @bg;
+  blink: false;
+  
+  border: 0;
+  margin: 0;
+  padding: 0;
+  spacing: 0;
+}
+
+window {
+  location: north;
+  width: 100%;
+}
+
+mainbox {
+  background-color: @bg-inputbar;
+  children: [inputbar, listview];
+}
+
+inputbar {
+  children: [prompt, entry];
+}
+
+prompt {
+  text-color: @fg-prompt;
+  background-color: @bg-prompt;
+  padding: 2 5 1 5;
+}
+
+entry {
+  padding: 2 0 1 5;
+}
+
+listview {
+  columns: 1;
+  fixed-height: false;
+  lines: 20;
+  dynamic: false;
+}
+
+element {
+  text-color: @fg-unselected;
+  padding: 2 0 1 5;
+}
+
+element selected {
+  text-color: @fg-selected;
+  background-color: @bg-selected;
+}
+
+element-text {
+  text-color: inherit;
+  background-color: inherit;
+}
+
+/* vim: ft=sass

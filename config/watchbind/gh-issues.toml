@@ -1,0 +1,6 @@
+command = "gh-issues.sh list"
+interval = 10
+
+[keybindings]
+"n" = [ "gh-issues.sh create", "reload" ]
+"x" = [ "gh-issues.sh close", "reload" ]

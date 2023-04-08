@@ -1,0 +1,66 @@
+configuration {
+  modi: "window,run,drun";
+  font: "Bitstream Vera Sans Mono 12";
+  drun-display-format: "{name}";
+  show-icons: false;
+}
+
+* {
+  bg: #000000;
+  bg-alt: #81a1c1;
+
+  fg: #d8dee9;
+  fg-alt: #787C8F;
+
+  background-color: @bg;
+  
+  border: 0;
+  margin: 0;
+  padding: 0;
+  spacing: 0;
+}
+
+window {
+  height: 60%;
+  width: 40%;
+}
+
+element {
+  padding: 6 14;
+  text-color: @fg-alt;
+}
+
+element selected {
+  text-color: @fg;
+  background-color: @bg-alt;
+}
+
+element-text {
+  background-color: inherit;
+  text-color: inherit;
+  vertical-align: 0.5;
+}
+
+entry {
+  background-color: @bg;
+  padding: 10;
+  text-color: @fg;
+  blink: false;
+}
+
+inputbar {
+  children: [entry];
+}
+
+listview {
+  background-color: @bg;
+  columns: 1;
+  lines: 8;
+}
+
+mainbox {
+  background-color: @bg;
+  children: [inputbar, listview];
+}
+
+/* vim: ft=sass

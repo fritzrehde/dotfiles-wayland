@@ -1,0 +1,8 @@
+bind-key h quit
+bind-key j down
+bind-key k up
+bind-key l open
+
+browser "$BROWSER"
+# macro v set browser "setsid -f mpv --no-terminal --profile=1080p" ; open-in-browser ; set browser "$BROWSER"
+macro v set browser "mpv --profile=1080p --no-terminal" ; open-in-browser-noninteractively ; set browser "$BROWSER"

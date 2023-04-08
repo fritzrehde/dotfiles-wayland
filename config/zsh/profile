@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# === TOOLS
+export TERMINAL="kitty"
+export EDITOR="nvim"
+export BROWSER="qutebrowser"
+
+# === LOCATIONS
+export XDG_CONFIG_HOME="$HOME/.config"
+export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+export PATH=$PATH:$HOME/.local/bin:$HOME/.cargo/bin
+
+# clipmenu
+# export CM_LAUNCHER=rofi
+# export CM_OUPUT_CLIP=0
+
+# fzf
+source ~/.config/fzf/config.sh

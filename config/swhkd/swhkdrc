@@ -1,0 +1,82 @@
+# === OPEN APPS
+
+# open terminal
+super + Return
+	$TERMINAL
+
+# open browser
+super + BackSpace
+	$BROWSER
+
+# open todo list
+super + t
+	kitty --class floating_tall todo-do.sh
+
+# add new todo
+super + n
+	todo-add.sh
+
+# play media from clipboard in mpv
+super + {_, shift + }y
+	mpv.sh {focus, stay}
+
+
+# === SYSTEM TASKS
+
+# close dunst notifications
+super + {_, shift + }w
+	dunstctl {close, close-all}
+
+# volume control
+{XF86AudioRaiseVolume, XF86AudioLowerVolume, XF86AudioMute}
+	change-volume.sh {up, down, mute}
+
+# brightness control
+{XF86MonBrightnessUp, XF86MonBrightnessDown}
+	change-brightness.sh {up, down}
+
+# screenshots
+super + shift + {3, 4}
+	screenshot.sh {_, select}
+
+
+# === ROFI
+
+# rofi apps
+super + d
+	rofi -show drun -theme ~/.config/rofi/themes/icons-$(theme.sh).rasi
+
+# rofi script launcher
+super + s
+	rofi-scripts.sh
+
+# rofi clipmenu
+super + p
+	clipmenu.sh
+
+# rofi power
+super + Escape
+	rofi-power.sh
+
+super + o
+	rofi-calc.sh
+
+
+# === REMAPS
+
+# remap copy
+super + c
+	xte \
+	'keyup Alt_L' 'keyup c' \
+	'keydown Control_L' 'keydown c' \
+	'keyup c' 'keyup Control_L'
+
+# remap paste
+super + v
+	xte \
+	'keyup Alt_L' 'keyup v' \
+	'keydown Control_L' 'keydown v' \
+	'keyup v' 'keyup Control_L'
+
+
+; vim:ft=conf

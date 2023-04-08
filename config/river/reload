@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# === River settings
+
+~/.config/river/settings
+
+
+# === Other tools
+
+# waybar
+killall -SIGUSR2 waybar

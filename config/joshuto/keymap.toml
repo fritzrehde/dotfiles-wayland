@@ -1,0 +1,136 @@
+[default_view]
+
+keymap = [
+	# change view
+	{ keys = [ "." ], command = "toggle_hidden" },
+
+	# movement
+	{ keys = [ "q" ], command = "close_tab" },
+	{ keys = [ "Q" ], command = "quit --output-current-directory" },
+	{ keys = [ "j" ], command = "cursor_move_down" },
+	{ keys = [ "k" ], command = "cursor_move_up" },
+	{ keys = [ "h" ], command = "cd .." },
+	{ keys = [ "l" ], command = "open" },
+	{ keys = [ "g", "g" ],command = "cursor_move_home" },
+	{ keys = [ "G" ], command = "cursor_move_end" },
+	{ keys = [ "K" ], command = "cursor_move_page_up 0.5" },
+	{ keys = [ "J" ], command = "cursor_move_page_down 0.5" },
+	{ keys = [ "[" ], command = "parent_cursor_move_down" },
+	{ keys = [ "]" ], command = "parent_cursor_move_up" },
+
+	# rename
+	{ keys = [ "c" ], command = "rename_keep_ext" },
+	{ keys = [ "a" ], command = "rename_append" },
+	{ keys = [ "i" ], command = "rename_prepend" },
+	{ keys = [ "C" ], command = ":rename " },
+
+	# selection
+	{ keys = [ " " ], command = "select --toggle=true" },
+	{ keys = [ "v" ], command = "select" },
+	{ keys = [ "escape" ], command = "select --deselect=true --all=true" },
+	# { keys = [ "t" ], command = "select --all=true --toggle=true" },
+	# { keys = [ "V" ], command = "toggle_visual"},
+
+	# file operations
+	{ keys = [ "m" ], command = ":mkdir " },
+	{ keys = [ "t" ], command = ":touch " },
+	{ keys = [ "e" ], command = "shell nvim %s" },
+	{ keys = [ "y" ], command = "copy_files" },
+	{ keys = [ "p" ], command = "paste_files" },
+	{ keys = [ "d" ], command = "cut_files" },
+	{ keys = [ "x" ], command = "delete_files --foreground=true" },
+
+	# search
+	{ keys = [ "n" ], command = "search_next" },
+	{ keys = [ "N" ], command = "search_prev" },
+
+
+
+
+	# { keys = [ "c", "d" ],command = ":cd " },
+	# { keys = [ "d", "d" ],command = "cut_files" },
+	# { keys = [ "y", "y" ],command = "copy_files" },
+	# { keys = [ "y", "n" ],command = "copy_filename" },
+	# { keys = [ "y", "." ],command = "copy_filename_without_extension" },
+	# { keys = [ "y", "p" ],command = "copy_filepath" },
+	# { keys = [ "y", "d" ],command = "copy_dirpath" },
+
+	# { keys = [ "p", "l" ],command = "symlink_files --relative=false" },
+	# { keys = [ "p", "L" ],command = "symlink_files --relative=true" },
+
+	# { keys = [ "delete" ], command = "delete_files --foreground=true" },
+	# { keys = [ "d", "D" ],command = "delete_files --foreground=true" },
+
+	# { keys = [ "p", "p" ],command = "paste_files" },
+	# { keys = [ "p", "o" ],command = "paste_files --overwrite=true" },
+
+	# { keys = [ "f", "t" ],command = ":touch " },
+
+	# { keys = [ "w" ], command = "show_tasks --exit-key=w" },
+	# { keys = [ "b", "b" ],command = "bulk_rename" },
+	# { keys = [ "=" ], command = "set_mode" },
+
+	{ keys = [ ":" ], command = ":" },
+	{ keys = [ ";" ], command = ":" },
+
+	{ keys = [ "'" ], command = ":shell " },
+	# { keys = [ "c",  "w" ],command = ":rename " },
+
+	{ keys = [ "/" ], command = ":search " },
+	{ keys = [ "|" ], command = ":search_inc " },
+	{ keys = [ "\\" ], command = ":search_glob " },
+	{ keys = [ "S" ], command = "search_fzf" },
+	# { keys = [ "C" ], command = "subdir_fzf" },
+
+	{ keys = [ "s", "r" ],command = "sort reverse" },
+	{ keys = [ "s", "l" ],command = "sort lexical" },
+	{ keys = [ "s", "m" ],command = "sort mtime" },
+	{ keys = [ "s", "n" ],command = "sort natural" },
+	{ keys = [ "s", "s" ],command = "sort size" },
+	{ keys = [ "s", "e" ],command = "sort ext" },
+
+	{ keys = [ "g", "r" ],command = "cd /" },
+	{ keys = [ "g", "c" ],command = "cd ~/.config" },
+	{ keys = [ "g", "d" ],command = "cd ~/Downloads" },
+	{ keys = [ "g", "e" ],command = "cd /etc" },
+	{ keys = [ "g", "h" ],command = "cd ~/" },
+	{ keys = [ "?" ], command = "help" }
+]
+
+[task_view]
+
+keymap = [
+	# arrow keys
+	{ keys = [ "arrow_up" ], command = "cursor_move_up" },
+	{ keys = [ "arrow_down" ], command = "cursor_move_down" },
+	{ keys = [ "home" ], command = "cursor_move_home" },
+	{ keys = [ "end" ], command = "cursor_move_end" },
+
+	# vim-like keybindings
+	{ keys = [ "j" ], command = "cursor_move_down" },
+	{ keys = [ "k" ], command = "cursor_move_up" },
+	{ keys = [ "g",  "g" ],command = "cursor_move_home" },
+	{ keys = [ "G" ], command = "cursor_move_end" },
+
+	{ keys = [ "w" ], command = "show_tasks" },
+	{ keys = [ "escape" ], command = "show_tasks" },
+]
+
+[help_view]
+
+keymap = [
+	# arrow keys
+	{ keys = [ "arrow_up" ], command = "cursor_move_up" },
+	{ keys = [ "arrow_down" ], command = "cursor_move_down" },
+	{ keys = [ "home" ], command = "cursor_move_home" },
+	{ keys = [ "end" ], command = "cursor_move_end" },
+
+	# vim-like keybindings
+	{ keys = [ "j" ], command = "cursor_move_down" },
+	{ keys = [ "k" ], command = "cursor_move_up" },
+	{ keys = [ "g",  "g" ],command = "cursor_move_home" },
+	{ keys = [ "G" ], command = "cursor_move_end" },
+
+	{ keys = [ "w" ], command = "show_tasks" },
+	{ keys = [ "escape" ], command = "show_tasks" },
+]

@@ -1,0 +1,19 @@
+include main
+
+# normal mode
+map w exec 'sh -ic "~/.local/bin/zathura-mode.sh \"$FILE\" zathura/alt normal"'
+map j navigate next
+map k navigate previous
+map J scroll down
+map K scroll up
+map Down navigate next
+map Up navigate previous
+
+# fullscreen mode
+map [fullscreen] w exec 'sh -ic "~/.local/bin/zathura-mode.sh \"$FILE\" zathura/alt fullscreen"'
+map [fullscreen] j navigate next
+map [fullscreen] k navigate previous
+map [fullscreen] J scroll down
+map [fullscreen] K scroll up
+map [fullscreen] Down navigate next
+map [fullscreen] Up navigate previous

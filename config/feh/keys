@@ -1,0 +1,30 @@
+# unbind
+# toggle_keep_vp
+# save_image
+# save_filelist
+# reload_plus
+# reload_minus
+# reload_image
+# render
+# toggle_filenames
+# toggle_fixed_geometry
+# jump_random
+
+# image navigation
+next_img J
+prev_img K
+
+# image movement
+scroll_up k
+scroll_down j
+scroll_left h
+scroll_right l
+
+# misc
+toggle_fullscreen f
+zoom_in equal
+zoom_out minus
+zoom_fill 0
+# zoom_default z
+# orient_1 r greater
+# orient_3 R less

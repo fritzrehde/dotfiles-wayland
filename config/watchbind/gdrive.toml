@@ -1,0 +1,10 @@
+command = "gdrive.sh list"
+interval = 2.0
+
+[keybindings]
+"J" = [ "down 12" ]
+"K" = [ "up 12" ]
+"x" = [ "gdrive.sh delete", "reload", "unselect-all" ]
+"l" = [ "gdrive.sh download &" ]
+"p" = [ "gdrive.sh upload &" ]
+"u" = [ "gdrive.sh space-used &" ]
