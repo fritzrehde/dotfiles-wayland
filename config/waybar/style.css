@@ -1,0 +1,80 @@
+* {
+	/* TODO: add fall-back font */
+	/* TODO: fix icons */
+	/* TODO: define colors once in beginning like rofi */
+	/* font-family: "Bitstream Vera Sans Mono:size=10", "FiraCode Nerd Font:size=11"; */
+	font-family: "Bitstream Vera Sans Mono", "FiraCode Nerd Font";
+	font-size: 13px;
+	border: none;
+}
+
+window#waybar { 
+	background: black;
+	color: white;
+}
+
+/* .modules-right { */
+/* 	padding: 0px 15px 0px 15px; */
+/* } */
+
+/* River tags */
+#tags button {
+	background: black;
+	color: white;
+	padding: 0 5px;
+	border-radius: 0px;
+}
+
+#tags button:not(.occupied) { 
+	color: black;
+}
+
+#tags button.focused { 
+	background: #787C8F;
+	color: white;
+}
+
+#tags button.urgent { 
+	background: red;
+}
+
+#tags button:hover { 
+	background: blue;
+	color: white;
+}
+
+#mode { 
+	/* background: #900000; */
+	/* color: #ffffff; */
+	padding: 0px 5px 0px 5px;
+	/* border: 1px solid #2f343a; */
+}
+
+
+#window {
+	/* color: #ffffff; */
+	/* background-color: #285577; */
+	padding: 0px 10px 0px 10px;
+}
+
+
+/* window#waybar.empty { */
+/* 	background-color: #323232; */
+/* } */
+
+
+/* #network, #temperature, #backlight, #pulseudio, #battery { */
+/*     padding: 0px 15px 0px 15px; */
+/* } */
+
+/* #clock { */
+/* 	margin: 0px 15px 0px 15px; */
+/* } */
+
+/* #battery.critical { */
+/*    color: #ff5555; */
+/* } */
+
+/* #network.disconnected { */
+/*     color: #ff5555; */
+/* } */

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-URL="$(clipboard-paste.sh)"
+URL="$(clipboard.sh paste)"
 LECTURE="$(echo "$URL" | tr "/" "\n" | grep ".mp4" | sed 's/\.mp4//')"
 SUBJECT="$(echo "$LECTURE" | cut -d '_' -f 1 | tr '[A-Z]' '[a-z]')"
 DIR=~/Downloads/videos/$SUBJECT

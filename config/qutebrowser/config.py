@@ -20,9 +20,10 @@ config.source('colors.py')
 
 # font
 c.fonts.default_family = 'Bitstream Vera Sans Mono'
-c.fonts.default_size = '10.5pt'
+# c.fonts.default_size = '10pt'
 
 # settings
+c.qt.force_platform = 'wayland'
 config.set('content.javascript.can_access_clipboard', True)
 c.editor.command = ['kitty', 'nvim', '{file}', '-c', 'normal {line}G{column0}l']
 c.messages.timeout = 1000

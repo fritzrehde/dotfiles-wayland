@@ -31,7 +31,7 @@ case "$1" in
 			done
 		;;
 	add)
-		transmission-remote --add "$(clipboard-paste.sh)"
+		transmission-remote --add "$(clipboard.sh paste)"
 		;;
 	start)
 		transmission-remote --torrent "$(torrent_ids)" --start

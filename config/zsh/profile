@@ -10,9 +10,19 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export PATH=$PATH:$HOME/.local/bin:$HOME/.cargo/bin
 
-# clipmenu
-# export CM_LAUNCHER=rofi
-# export CM_OUPUT_CLIP=0
+# === TOOL-SPECIFIC
+## wayland
+export MOZ_ENABLE_WAYLAND=1
 
-# fzf
+## chromium/firefox screensharing
+export XDG_CURRENT_DESKTOP="river"
+
+## intellij
+export _JAVA_AWT_WM_NONREPARENTING=1
+
+## qutebrowser
+# export QUTE_QT_WRAPPER="PyQt6"
+# export QT_QPA_PLATFORM="wayland"
+
+## fzf
 source ~/.config/fzf/config.sh

@@ -44,13 +44,29 @@ for MODE in default top bottom icons power; do
 	relink rofi/themes/${MODE}-${NEW_THEME}.rasi rofi/themes/${MODE}.rasi
 done
 
-# reload apps
-# bspc wm -r
+# === reload apps
+# river
+$XDG_CONFIG_HOME/river/settings
+
+# qutebrowser
 if pgrep qutebrowser > /dev/null; then
 	# bspc rule -a qutebrowser --one-shot desktop=1
 	qutebrowser ":restart" &
 fi
+
+# swaybg
+PID="$(pidof swaybg)"
+swaybg -i $XDG_CONFIG_HOME/wallpaper/wallpaper.jpg &
+kill "$PID"
+
+# kitty
 kitty +kitten themes --reload-in=all Current &
+
+# nvim
 nvim-ctl.sh "<esc>:colorscheme nord | source ~/.config/nvim/statusline.vim<cr>" &
+
+# tmux
 tmux source-file ~/.config/tmux/tmux.conf &
+
+# funst
 dunst.sh &

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-URL="$(clipboard-paste.sh)"
+URL="$(clipboard.sh paste)"
 # START_DESKTOP=$(bspc query --desktops --desktop focused --names)
 
 case "$1" in

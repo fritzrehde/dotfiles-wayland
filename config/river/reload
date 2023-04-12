@@ -8,4 +8,7 @@
 # === Other tools
 
 # waybar
-killall -SIGUSR2 waybar
+# killall -SIGUSR2 waybar
+killall -q waybar
+while pgrep -x waybar > /dev/null; do sleep 0.01; done
+waybar &

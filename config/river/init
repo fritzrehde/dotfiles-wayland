@@ -11,16 +11,34 @@ $HOME/.config/river/settings
 # swhks &
 # pkexec swhkd
 
-# dunst
-dunst &
+# swaybg
+swaybg -i $XDG_CONFIG_HOME/wallpaper/wallpaper.jpg &
 
 # waylock
 swayidle -w \
     before-sleep "waylock -fork-on-lock -init-color 0x000000 -input-color 0x000000" \
     timeout 600 "systemctl suspend" &
 
+# cliphist
+wl-paste --watch cliphist store &
+
+# dunst
+dunst &
+
 # gammastep
 gammastep &
 
 # waybar
 waybar &
+
+
+# === WAYLAND SCREENSHARING
+
+# From https://github.com/emersion/xdg-desktop-portal-wlr/wiki/%22It-doesn't-work%22-Troubleshooting-Checklist
+
+# Import the WAYLAND_DISPLAY env var from sway into the systemd user session.
+dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP="river"
+
+# Stop any services that are running, so that they receive the new env var when they restart.
+systemctl --user stop pipewire wireplumber xdg-desktop-portal xdg-desktop-portal-wlr
+systemctl --user start wireplumber

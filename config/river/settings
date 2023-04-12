@@ -4,6 +4,17 @@
 
 # === General
 
+# Set background and border color
+BORDER_FOCUSED="0x8faac9"
+if [ "$(theme.sh)" = "dark" ]; then
+    BORDER_NORMAL="0x282c34"
+else
+    BORDER_NORMAL="0xffffff"
+fi
+riverctl background-color 0x000000
+riverctl border-color-focused "$BORDER_FOCUSED"
+riverctl border-color-unfocused "$BORDER_NORMAL"
+
 
 # === Keybindings
 
@@ -61,36 +72,37 @@ all_tags=$(((1 << 32) - 1))
 riverctl map normal Super 0 set-focused-tags $all_tags
 riverctl map normal Super+Shift 0 set-view-tags $all_tags
 
-# Various media key mapping examples for both normal and locked mode which do
-# not have a modifier
-for mode in normal locked
-do
-    # Eject the optical drive (well if you still have one that is)
-    riverctl map $mode None XF86Eject spawn 'eject -T'
 
-    # change volume
-    riverctl map -repeat $mode None XF86AudioRaiseVolume  spawn 'change-volume.sh up'
-    riverctl map -repeat $mode None XF86AudioLowerVolume  spawn 'change-volume.sh down'
-    riverctl map -repeat $mode None XF86AudioMute         spawn 'change-volume.sh mute'
+# === System controls
 
-    # Control MPRIS aware media players with playerctl (https://github.com/altdesktop/playerctl)
-    riverctl map $mode None XF86AudioMedia spawn 'playerctl play-pause'
-    riverctl map $mode None XF86AudioPlay  spawn 'playerctl play-pause'
-    riverctl map $mode None XF86AudioPrev  spawn 'playerctl previous'
-    riverctl map $mode None XF86AudioNext  spawn 'playerctl next'
+# change volume
+riverctl map -repeat normal None XF86AudioRaiseVolume  spawn 'change-volume.sh up'
+riverctl map -repeat normal None XF86AudioLowerVolume  spawn 'change-volume.sh down'
+riverctl map -repeat normal None XF86AudioMute         spawn 'change-volume.sh mute'
+riverctl map -repeat normal None XF86AudioMicMute      spawn 'change-volume.sh mic-mute'
 
-    # change screen brightness
-    riverctl map $mode None XF86MonBrightnessUp   spawn 'change-brightness.sh up'
-    riverctl map $mode None XF86MonBrightnessDown spawn 'change-brightness.sh down'
-done
+# change screen brightness
+riverctl map normal None XF86MonBrightnessUp   spawn 'change-brightness.sh up'
+riverctl map normal None XF86MonBrightnessDown spawn 'change-brightness.sh down'
 
-# Set background and border color
-riverctl background-color 0x002b36
-riverctl border-color-focused 0x93a1a1
-riverctl border-color-unfocused 0x586e75
+# close dunst notifications
+riverctl map normal Super W       spawn 'dunstctl close'
+riverctl map normal Super+Shift W spawn 'dunstctl close-all'
+
+# take screenshot
+# super + shift + {3, 4}
+# 	screenshot.sh {_, select}
+riverctl map normal Alt+Shift 3 spawn 'screenshot.sh'
+riverctl map normal Alt+Shift 4 spawn 'screenshot.sh select'
+
+# control media player
+# riverctl map normal None XF86AudioMedia spawn 'playerctl play-pause'
+# riverctl map normal None XF86AudioPlay  spawn 'playerctl play-pause'
+# riverctl map normal None XF86AudioPrev  spawn 'playerctl previous'
+# riverctl map normal None XF86AudioNext  spawn 'playerctl next'
 
 
-# === Rofi
+# === External Apps
 
 # rofi power
 riverctl map normal Super Escape spawn 'rofi-power.sh'
@@ -101,18 +113,14 @@ riverctl map normal Super D spawn 'rofi -show drun -theme ~/.config/rofi/themes/
 # rofi script launcher
 riverctl map normal Super S spawn 'rofi-scripts.sh'
 
-# rofi clipmenu
-# super + p
-# 	clipmenu.sh
+# rofi clipboard
+riverctl map normal Super P spawn 'clipboard.sh rofi'
 
 # super + o
 # 	rofi-calc.sh
 
-
-# === Open apps
-
 # play media from clipboard in mpv
-riverctl map normal Super Y spawn 'mpv.sh focus'
+riverctl map normal Super Y       spawn 'mpv.sh focus'
 riverctl map normal Super+Shift Y spawn 'mpv.sh stay'
 
 
@@ -130,11 +138,22 @@ riverctl set-repeat 25 200
 
 riverctl hide-cursor timeout 1500
 
+# internal touchpad
 trackpad="pointer-2-7-SynPS/2_Synaptics_TouchPad"
 riverctl input "$trackpad" natural-scroll enabled
 riverctl input "$trackpad" tap enabled
-riverctl input "$trackpad" pointer-accel 0.1
+# riverctl input "$trackpad" pointer-accel 0.1
 
+# internal trackpoint
+trackpad="pointer-2-10-TPPS/2_IBM_TrackPoint"
+riverctl input "$trackpad" natural-scroll enabled
+# riverctl input "$trackpad" pointer-accel 0.1
+
+# logitech m720 triathlon mouse
+trackpad="pointer-1133-45077-M720_Triathlon_Mouse"
+riverctl input "$trackpad" natural-scroll enabled
+# riverctl input "$trackpad" tap enabled
+# riverctl input "$trackpad" pointer-accel 0.1
 
 # ---------------------------------------------------------
 
@@ -206,4 +225,4 @@ riverctl map passthrough Super F11 enter-mode normal
 riverctl default-layout rivertile
 rivertile \
     -view-padding 2 \
-    -outer-padding 2 &
+    -outer-padding 1 &
