@@ -1,0 +1,64 @@
+/* Define generic colors */
+@define-color black #000000;
+@define-color darkgrey #2e3440;
+@define-color grey #787C8F;
+@define-color white #ffffff;
+@define-color red #bf616a;
+@define-color orange #D08770;
+
+/* Define theme-specific colors */
+@define-color fg @white;
+@define-color bg @black;
+@define-color workspace-bg @grey;
+
+* {
+	/* font-family: "Bitstream Vera Sans Mono:size=10", "FiraCode Nerd Font:size=11"; */
+	font-family: "Bitstream Vera Sans Mono", "FiraCode Nerd Font";
+	font-size: 13px;
+	border: none;
+}
+
+window#waybar { 
+	background: @bg;
+	color: @fg;
+}
+
+/* Sway workspaces */
+#workspaces button {
+	color: @fg;
+	padding: 0 5px;
+	border-radius: 0px;
+}
+
+#workspaces button.focused { 
+	background: @workspace-bg;
+}
+
+#workspaces button.urgent { 
+	background: @red;
+}
+
+#workspaces button:hover { 
+	background: @darkgrey;
+}
+
+#mode { 
+	padding: 0px 5px 0px 5px;
+}
+
+#window {
+	padding: 0px 10px 0px 10px;
+}
+
+/* Module configuration */
+#battery.warning {
+   color: @orange;
+}
+
+#battery.critical {
+   color: @red;
+}
+
+#temperature.critical {
+   color: @red;
+}

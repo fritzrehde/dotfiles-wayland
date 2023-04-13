@@ -5,7 +5,7 @@
     "spacing": 15, // Gaps between modules (4px)
     "modules-left": ["sway/workspaces"],
     "modules-center": ["custom/clock"],
-    "modules-right": ["pulseaudio", "network", "temperature", "memory", "battery"],
+    "modules-right": ["pulseaudio", "network", "memory", "temperature", "battery"],
     "sway/workspaces": {
         "disable-scroll": true
     },

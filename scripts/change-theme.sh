@@ -31,12 +31,12 @@ relink() {
 	ln -fs ~/.config/$1 ~/.config/$2
 }
 relink sway/colors-${NEW_THEME}.conf sway/colors.conf
+relink waybar/style-${NEW_THEME}.css waybar/style.css
 relink qutebrowser/colors-${NEW_THEME}.py qutebrowser/colors.py
 relink nvim/colors/nord-${NEW_THEME}.vim nvim/colors/nord.vim
 relink nvim/statusline-${NEW_THEME}.vim nvim/statusline.vim
 relink kitty/themes/${NEW_THEME}.conf kitty/themes/current.conf
 relink tmux/tmux-${NEW_THEME}.conf tmux/tmux.conf
-# relink polybar/colors-${NEW_THEME}.ini polybar/colors.ini
 relink dunst/dunstrc-${NEW_THEME} dunst/dunstrc
 relink gtk-3.0/settings-${NEW_THEME}.ini gtk-3.0/settings.ini
 relink joshuto/theme-${NEW_THEME}.toml joshuto/theme.toml

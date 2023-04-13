@@ -284,6 +284,17 @@ bindsym $mod_alt+Shift+y  exec 'mpv.sh background'
 bar swaybar_command waybar
 
 
+# === Criteria (rules)
+
+# assign [app_id="mpv"] workspace number 3
+
+# bspc rule -a Zathura state=tiled focus=on desktop=any.!occupied
+# bspc rule -a discord desktop=any.!occupied
+# bspc rule -a mpv desktop=any.!occupied
+# bspc rule -a Slack desktop=any.!occupied
+# bspc rule -a jetbrains-idea-ce desktop=any.!occupied
+
+
 # === Start external apps
 
 # clipboard
@@ -295,6 +306,8 @@ exec 'dunst'
 # adjust color temperature
 exec 'gammastep'
 
+# open BROWSER and TERMINAL on startup
+exec --no-startup-id swaymsg 'workspace 1; exec qutebrowser; workspace 2; exec kitty tmux-startup.sh'
 
 # === Include other config files
 
