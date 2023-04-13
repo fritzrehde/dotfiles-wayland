@@ -30,6 +30,7 @@ relink() {
 	# TO="$(echo "$1" | sed 's/-$NEW_THEME//')"
 	ln -fs ~/.config/$1 ~/.config/$2
 }
+relink sway/colors-${NEW_THEME}.conf sway/colors.conf
 relink qutebrowser/colors-${NEW_THEME}.py qutebrowser/colors.py
 relink nvim/colors/nord-${NEW_THEME}.vim nvim/colors/nord.vim
 relink nvim/statusline-${NEW_THEME}.vim nvim/statusline.vim
@@ -45,8 +46,12 @@ for MODE in default top bottom icons power; do
 done
 
 # === reload apps
-# river
-$XDG_CONFIG_HOME/river/settings
+# sway
+swaymsg reload
+
+
+# # river
+# $XDG_CONFIG_HOME/river/settings
 
 # qutebrowser
 if pgrep qutebrowser > /dev/null; then
@@ -54,10 +59,10 @@ if pgrep qutebrowser > /dev/null; then
 	qutebrowser ":restart" &
 fi
 
-# swaybg
-PID="$(pidof swaybg)"
-swaybg -i $XDG_CONFIG_HOME/wallpaper/wallpaper.jpg &
-kill "$PID"
+# # swaybg
+# PID="$(pidof swaybg)"
+# swaybg -i $XDG_CONFIG_HOME/wallpaper/wallpaper.jpg &
+# kill "$PID"
 
 # kitty
 kitty +kitten themes --reload-in=all Current &

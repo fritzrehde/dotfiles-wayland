@@ -1,37 +1,64 @@
 * {
-	/* TODO: add fall-back font */
-	/* TODO: fix icons */
-	/* TODO: define colors once in beginning like rofi */
 	/* font-family: "Bitstream Vera Sans Mono:size=10", "FiraCode Nerd Font:size=11"; */
 	font-family: "Bitstream Vera Sans Mono", "FiraCode Nerd Font";
 	font-size: 13px;
 	border: none;
+
+	/* Define generic colors */
+	/* --black: #000000; */
+	/* --darkgrey: #2e3440; */
+	/* --grey: #787C8F; */
+	/* --white: #ffffff; */
+	/* --offwhite: #d8dee9; */
+	/* --red: #bf616a; */
+
+	/* Define theme-specific fg and bg colors */
+	/* --fg: var(--white); */
+	/* --bg: var(--black); */
 }
 
 window#waybar { 
-	background: black;
-	color: white;
+	background: #000000;
+	color: #ffffff;
 }
 
-/* .modules-right { */
-/* 	padding: 0px 15px 0px 15px; */
-/* } */
+/* Sway workspaces */
+#workspaces button {
+	background: #000000;
+	color: #ffffff;
+	padding: 0 5px;
+	border-radius: 0px;
+}
+
+#workspaces button.focused { 
+	background: #787C8F;
+	color: #ffffff;
+}
+
+#workspaces button.urgent { 
+	background: red;
+}
+
+#workspaces button:hover { 
+	background: blue;
+	color: #ffffff;
+}
 
 /* River tags */
 #tags button {
-	background: black;
-	color: white;
+	background: #000000;
+	color: #ffffff;
 	padding: 0 5px;
 	border-radius: 0px;
 }
 
 #tags button:not(.occupied) { 
-	color: black;
+	color: #000000;
 }
 
 #tags button.focused { 
 	background: #787C8F;
-	color: white;
+	color: #ffffff;
 }
 
 #tags button.urgent { 
@@ -40,41 +67,26 @@ window#waybar {
 
 #tags button:hover { 
 	background: blue;
-	color: white;
+	color: #ffffff;
 }
 
 #mode { 
-	/* background: #900000; */
-	/* color: #ffffff; */
 	padding: 0px 5px 0px 5px;
-	/* border: 1px solid #2f343a; */
 }
 
-
 #window {
-	/* color: #ffffff; */
-	/* background-color: #285577; */
 	padding: 0px 10px 0px 10px;
 }
 
+/* Module configuration */
+#battery.warning {
+   color: #D08770;
+}
 
-/* window#waybar.empty { */
-/* 	background-color: #323232; */
-/* } */
+#battery.critical {
+   color: #bf616a;
+}
 
-
-/* #network, #temperature, #backlight, #pulseudio, #battery { */
-/*     padding: 0px 15px 0px 15px; */
-/* } */
-
-/* #clock { */
-/* 	margin: 0px 15px 0px 15px; */
-/* } */
-
-/* #battery.critical { */
-/*    color: #ff5555; */
-/* } */
-
-/* #network.disconnected { */
-/*     color: #ff5555; */
-/* } */
+#temperature.critical {
+   color: #bf616a;
+}

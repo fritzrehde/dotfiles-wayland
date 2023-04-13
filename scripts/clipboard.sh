@@ -10,6 +10,6 @@ case "$1" in
 		;;
 	rofi)
 		# cliphist list | cut -f 2- | rofi.sh | wl-copy
-		cliphist list | rofi.sh | cliphist decode | wl-copy
+		cliphist list | rofi.sh top -display-columns 2 | cliphist decode | wl-copy
 		;;
 esac

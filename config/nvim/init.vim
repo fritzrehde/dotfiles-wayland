@@ -115,9 +115,7 @@ Plug 'tpope/vim-sleuth'
 Plug 'lukas-reineke/indent-blankline.nvim'
 let g:indent_blankline_show_trailing_blankline_indent = v:false
 
-Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
-let g:Hexokinase_highlighters = ['backgroundfull']
-let g:Hexokinase_optInPatterns = 'full_hex,rgb,rgba,hsl,hsla'
+Plug 'norcalli/nvim-colorizer.lua'
 
 Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
@@ -126,6 +124,10 @@ Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 
 call plug#end()
+
+
+" === nvim-colorizer.lua
+lua require'colorizer'.setup()
 
 
 " === Lua

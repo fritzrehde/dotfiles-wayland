@@ -120,8 +120,8 @@ riverctl map normal Super P spawn 'clipboard.sh rofi'
 # 	rofi-calc.sh
 
 # play media from clipboard in mpv
-riverctl map normal Super Y       spawn 'mpv.sh focus'
-riverctl map normal Super+Shift Y spawn 'mpv.sh stay'
+riverctl map normal Super Y       spawn 'mpv.sh'
+riverctl map normal Super+Shift Y spawn 'mpv.sh background'
 
 
 # === Keyboard
