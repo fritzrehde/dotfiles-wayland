@@ -4,19 +4,22 @@
 set $mod_alt Mod4
 set $mod_super Mod1
 
-# default tools
+# tools
 set $term '$TERMINAL'
 set $browser '$BROWSER'
 
-# Home row direction keys, like vim
+# home row direction keys, like vim
 set $left h
 set $down j
 set $up k
 set $right l
 
 # colors
-include colors.conf
-set $color_none #ffffff
+include colors/colors.conf
+set $color_grey #2e3440
+
+# locations
+set $scripts $XDG_CONFIG_HOME/sway/scripts
 
 
 # === Looks
@@ -30,9 +33,9 @@ smart_gaps on
 smart_borders on
 
 # customize border colors
-# class            border      backgr.     text        indicator   child_border
-  client.focused   $color_none $color_none $color_none $color_none $color_border_focused
-  client.unfocused $color_none $color_none $color_none $color_none $color_border_unfocused
+# class            border                  backgr.                 text        indicator               child_border
+  client.focused   $color_border_focused   $color_border_focused   $color_grey $color_border_focused   $color_border_focused
+  client.unfocused $color_border_unfocused $color_border_unfocused $color_grey $color_border_unfocused $color_border_unfocused
 
 
 # === Output configuration
@@ -65,8 +68,8 @@ output * scale 1.25
 # your displays after another 300 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
 exec swayidle -w \
-    before-sleep "waylock -fork-on-lock -init-color 0x000000 -input-color 0x000000" \
-    timeout 600 "systemctl suspend"
+    timeout 600 "systemctl suspend" \
+    before-sleep "waylock -fork-on-lock -init-color 0x000000 -input-color 0x000000"
 
 
 # === Input configuration
@@ -85,24 +88,24 @@ input "type:touchpad" {
 input "2:10:TPPS/2_IBM_TrackPoint" {
     pointer_accel 0.1
     natural_scroll enabled
-    scroll_factor 0.5
+    scroll_factor 0.4
     # dwt enabled
 }
 
-# # logitech m720 triathlon mouse
-# input "2:10:TPPS/2_IBM_TrackPoint" {
-#     pointer_accel 0.1
-#     natural_scroll enabled
-#     scroll_factor 0.5
-#     # dwt enabled
-# }
+# logitech m720 triathlon mouse
+input "1133:45077:M720_Triathlon_Mouse" {
+    # pointer_accel 0.1
+    natural_scroll enabled
+    # scroll_factor 0.5
+    # dwt enabled
+}
 
 
 # TODO: create xkb file and load (see man 5 sway-input)
 input type:keyboard {
-    xkb_layout "us"
     xkb_variant "altgr-intl"
-    xkb_options "caps:swapescape,altwin:swap_alt_win"
+    xkb_options "caps:swapescape,altwin:swap_lalt_lwin"
+    xkb_layout "us"
     repeat_delay 200
     repeat_rate 25
 }
@@ -268,11 +271,12 @@ bindsym $mod_super+Shift+4 exec 'screenshot.sh select'
 # == External Apps
 
 # rofi
-bindsym $mod_alt+Escape exec 'rofi-power.sh'
+bindsym $mod_alt+Escape  exec 'rofi-power.sh'
 # TODO: icons have low resolution
-bindsym $mod_alt+d      exec 'rofi -show drun -theme ~/.config/rofi/themes/icons-$(theme.sh).rasi'
-bindsym $mod_alt+s      exec 'rofi-scripts.sh'
-bindsym $mod_alt+p      exec 'clipboard.sh rofi'
+bindsym $mod_alt+d       exec 'rofi -show drun -theme ~/.config/rofi/themes/icons-$(theme.sh).rasi'
+bindsym $mod_alt+s       exec 'rofi-scripts.sh'
+bindsym $mod_alt+p       exec 'clipboard.sh rofi-paste'
+bindsym $mod_alt+Shift+p exec 'clipboard.sh rofi-copy'
 
 # play media from clipboard in mpv
 bindsym $mod_alt+y        exec 'mpv.sh'
@@ -286,13 +290,21 @@ bar swaybar_command waybar
 
 # === Criteria (rules)
 
-# assign [app_id="mpv"] workspace number 3
+set $tmp_ws t
 
-# bspc rule -a Zathura state=tiled focus=on desktop=any.!occupied
-# bspc rule -a discord desktop=any.!occupied
-# bspc rule -a mpv desktop=any.!occupied
-# bspc rule -a Slack desktop=any.!occupied
-# bspc rule -a jetbrains-idea-ce desktop=any.!occupied
+# == Open specific applications in next empty workspace
+
+# current hacky solution: open app in "$tmp_ws" workspace first, and then move to next empty
+# ideal solution (invalid as "$()" not evaluated): for_window [app_id="mpv"] move container to workspace $($scripts/sway-next-empty-workspace.sh)
+
+
+# mpv
+assign     [app_id="mpv"] workspace $tmp_ws
+for_window [app_id="mpv"] exec --no-startup-id 'swaymsg [workspace=$tmp_ws] move container to workspace $($scripts/sway-next-empty-workspace.sh)'
+
+# zathura
+assign     [app_id="zathura"] workspace $tmp_ws
+for_window [app_id="zathura"] exec --no-startup-id 'swaymsg [workspace=$tmp_ws] move container to workspace $($scripts/sway-next-empty-workspace.sh)'
 
 
 # === Start external apps

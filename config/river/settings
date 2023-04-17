@@ -128,7 +128,7 @@ riverctl map normal Super+Shift Y spawn 'mpv.sh background'
 
 riverctl keyboard-layout \
 	-variant altgr-intl \
-	-options caps:swapescape,altwin:swap_alt_win \
+	-options caps:swapescape,altwin:swap_lalt_lwin \
 	us
 
 riverctl set-repeat 25 200

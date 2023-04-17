@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # === TOOLS
-export TERMINAL="kitty"
+export TERMINAL="alacritty"
 export EDITOR="nvim"
 export BROWSER="qutebrowser"
 

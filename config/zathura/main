@@ -2,6 +2,9 @@
 set guioptions none
 set selection-clipboard clipboard
 
+# font
+set font "Bitstream Vera Sans Mono normal 10"
+
 # colors
 set statusbar-bg "#2e3440"
 set statusbar-fg "#d8dee9"

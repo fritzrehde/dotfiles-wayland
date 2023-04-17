@@ -5,7 +5,7 @@
     "spacing": 15, // Gaps between modules (4px)
     "modules-left": ["sway/workspaces"],
     "modules-center": ["custom/clock"],
-    "modules-right": ["pulseaudio", "network", "memory", "temperature", "battery"],
+    "modules-right": ["pulseaudio", "custom/power_usage", "backlight", "custom/kbd_backlight", "network", "memory", "temperature", "battery"],
     "sway/workspaces": {
         "disable-scroll": true
     },
@@ -16,6 +16,17 @@
         "exec": "date +\"%a, %d %b %H:%M\"",
         "restart-interval": 1
     },
+    // TODO: react to changes instantly
+    "custom/kbd_backlight": {
+        "format": "󰘳 {}",
+        "exec": "brightnessctl --device='tpacpi::kbd_backlight' info -m | cut -d ',' -f 4",
+        "restart-interval": 1
+    },
+    //"custom/power_usage": {
+        //"format": "󰌵 {}",
+        //"exec": "awk '{ printf("%.2f", $1*10^-6) }' /sys/class/power_supply/BAT0/power_now",
+        //"restart-interval": 2
+    //},
     "cpu": {
         "format": " {usage}%",
         "tooltip": false
@@ -39,10 +50,10 @@
         "format": "{icon} {capacity}%",
         "format-charging": " {capacity}%",
         "format-plugged": " {capacity}%",
+        "format-full": " {capacity}%",
         "format-alt": "{icon} {time}",
         // "format-good": "", // An empty format will hide the module
-        // "format-full": "",
-        "format-icons": ["", "", "", "", "", ""]
+        "format-icons": ["", "", "", "", ""]
     },
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
@@ -71,6 +82,11 @@
             "default": ["󰕿", "󰖀", "󰕾"]
         },
         "on-click": "pavucontrol"
+    },
+    "backlight": {
+        // "device": "acpi_video1",
+        "format": "{icon} {percent}%",
+        "format-icons": ["", "", "", "", "", "", "", "", ""]
     }
 }
 

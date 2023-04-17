@@ -30,12 +30,12 @@ relink() {
 	# TO="$(echo "$1" | sed 's/-$NEW_THEME//')"
 	ln -fs ~/.config/$1 ~/.config/$2
 }
-relink sway/colors-${NEW_THEME}.conf sway/colors.conf
+relink sway/colors/colors-${NEW_THEME}.conf sway/colors/colors.conf
 relink waybar/style-${NEW_THEME}.css waybar/style.css
 relink qutebrowser/colors-${NEW_THEME}.py qutebrowser/colors.py
 relink nvim/colors/nord-${NEW_THEME}.vim nvim/colors/nord.vim
 relink nvim/statusline-${NEW_THEME}.vim nvim/statusline.vim
-relink kitty/themes/${NEW_THEME}.conf kitty/themes/current.conf
+relink alacritty/colors-${NEW_THEME}.yml alacritty/colors.yml
 relink tmux/tmux-${NEW_THEME}.conf tmux/tmux.conf
 relink dunst/dunstrc-${NEW_THEME} dunst/dunstrc
 relink gtk-3.0/settings-${NEW_THEME}.ini gtk-3.0/settings.ini
@@ -50,22 +50,11 @@ done
 swaymsg reload
 
 
-# # river
-# $XDG_CONFIG_HOME/river/settings
-
 # qutebrowser
 if pgrep qutebrowser > /dev/null; then
 	# bspc rule -a qutebrowser --one-shot desktop=1
 	qutebrowser ":restart" &
 fi
-
-# # swaybg
-# PID="$(pidof swaybg)"
-# swaybg -i $XDG_CONFIG_HOME/wallpaper/wallpaper.jpg &
-# kill "$PID"
-
-# kitty
-kitty +kitten themes --reload-in=all Current &
 
 # nvim
 nvim-ctl.sh "<esc>:colorscheme nord | source ~/.config/nvim/statusline.vim<cr>" &

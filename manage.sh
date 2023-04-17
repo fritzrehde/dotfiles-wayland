@@ -3,6 +3,7 @@
 CONFIG=~/.config
 SCRIPTS=~/.local/bin
 
+# TODO: watch the config directory, and everytime a new file is created, ask if it should be linked to .config
 # TODO: print what has been installed
 
 case "$1" in

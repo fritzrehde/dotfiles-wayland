@@ -2,7 +2,7 @@
 
 # create new shell script
 
-SCRIPTS=~/dotfiles/scripts
+SCRIPTS=$HOME/git/dotfiles-wayland/scripts
 FILENAME="$(rofi.sh top -p "name")" || exit 1
 
 # create file
