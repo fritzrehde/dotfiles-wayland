@@ -36,7 +36,7 @@ relink qutebrowser/colors-${NEW_THEME}.py qutebrowser/colors.py
 relink nvim/colors/nord-${NEW_THEME}.vim nvim/colors/nord.vim
 relink nvim/statusline-${NEW_THEME}.vim nvim/statusline.vim
 relink alacritty/colors-${NEW_THEME}.yml alacritty/colors.yml
-relink tmux/tmux-${NEW_THEME}.conf tmux/tmux.conf
+relink tmux/colors-${NEW_THEME}.conf tmux/colors.conf
 relink dunst/dunstrc-${NEW_THEME} dunst/dunstrc
 relink gtk-3.0/settings-${NEW_THEME}.ini gtk-3.0/settings.ini
 relink joshuto/theme-${NEW_THEME}.toml joshuto/theme.toml

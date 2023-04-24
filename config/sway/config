@@ -5,8 +5,8 @@ set $mod_alt Mod4
 set $mod_super Mod1
 
 # tools
-set $term '$TERMINAL'
-set $browser '$BROWSER'
+set $terminal $TERMINAL
+set $browser $BROWSER
 
 # home row direction keys, like vim
 set $left h
@@ -21,12 +21,16 @@ set $color_grey #2e3440
 # locations
 set $scripts $XDG_CONFIG_HOME/sway/scripts
 
+# outputs
+set $laptop_display eDP-1
+
 
 # === Looks
 
 # gaps and border widths
 gaps inner 1
 default_border pixel 2
+default_floating_border pixel 2
 
 # gaps and borders are disabled for single containers
 smart_gaps on
@@ -52,7 +56,7 @@ smart_borders on
 output * bg ~/.config/wallpaper/wallpaper.jpg fill
 
 # fractional scaling
-output * scale 1.25
+output $laptop_display scale 1.2
 
 
 # === Idle configuration
@@ -74,33 +78,7 @@ exec swayidle -w \
 
 # === Input configuration
 
-# TODO: disable middle click pasting
-# touchpad
-input "type:touchpad" {
-    pointer_accel 0.1
-    natural_scroll enabled
-    scroll_factor 0.5
-    tap enabled
-    # dwt enabled
-}
-
-# trackpoint
-input "2:10:TPPS/2_IBM_TrackPoint" {
-    pointer_accel 0.1
-    natural_scroll enabled
-    scroll_factor 0.4
-    # dwt enabled
-}
-
-# logitech m720 triathlon mouse
-input "1133:45077:M720_Triathlon_Mouse" {
-    # pointer_accel 0.1
-    natural_scroll enabled
-    # scroll_factor 0.5
-    # dwt enabled
-}
-
-
+# == Keyboards
 # TODO: create xkb file and load (see man 5 sway-input)
 input type:keyboard {
     xkb_variant "altgr-intl"
@@ -110,16 +88,40 @@ input type:keyboard {
     repeat_rate 25
 }
 
+# == Pointers
+
 # hide cursor after timeout
 seat * hide_cursor 1500
 
+# TODO: disable middle click pasting
+# all pointers
+input "type:pointer" {
+    natural_scroll enabled
+}
+
+# all touchpads
+input "type:touchpad" {
+    pointer_accel 0.1
+    natural_scroll enabled
+    scroll_factor 0.5
+    tap enabled
+}
+
+# thinkpad trackpoint
+input "2:10:TPPS/2_IBM_TrackPoint" {
+    scroll_factor 0.4
+}
+
+# logitech m720 triathlon mouse
+# input "1133:45077:M720_Triathlon_Mouse" {
+# }
 
 # === Keybindings
 
 # == Basics
 
 # open terminal
-bindsym $mod_alt+Return exec $term
+bindsym $mod_alt+Return exec $terminal
 
 # open browser
 bindsym $mod_alt+Backspace exec $browser
@@ -171,7 +173,7 @@ bindsym $mod_alt+Shift+$right focus right
 
 # == Workspaces
 
-# wwitch to workspace
+# switch to workspace
 bindsym $mod_alt+1 workspace number 1
 bindsym $mod_alt+2 workspace number 2
 bindsym $mod_alt+3 workspace number 3
@@ -267,6 +269,9 @@ bindsym $mod_super+Shift+4 exec 'screenshot.sh select'
 # bindsym XF86AudioPrev  exec 'playerctl previous'
 # bindsym XF86AudioNext  exec 'playerctl next'
 
+# turn on/off laptop display
+bindsym XF86Favorites exec 'swaymsg output $laptop_display power toggle'
+
 
 # == External Apps
 
@@ -300,11 +305,11 @@ set $tmp_ws t
 
 # mpv
 assign     [app_id="mpv"] workspace $tmp_ws
-for_window [app_id="mpv"] exec --no-startup-id 'swaymsg [workspace=$tmp_ws] move container to workspace $($scripts/sway-next-empty-workspace.sh)'
+for_window [app_id="mpv"] exec 'swaymsg [workspace=$tmp_ws] move container to workspace $($scripts/next-empty-workspace.sh)'
 
 # zathura
 assign     [app_id="zathura"] workspace $tmp_ws
-for_window [app_id="zathura"] exec --no-startup-id 'swaymsg [workspace=$tmp_ws] move container to workspace $($scripts/sway-next-empty-workspace.sh)'
+for_window [app_id="zathura"] exec 'swaymsg [workspace=$tmp_ws] move container to workspace $($scripts/next-empty-workspace.sh)'
 
 
 # === Start external apps
@@ -319,7 +324,7 @@ exec 'dunst'
 exec 'gammastep'
 
 # open BROWSER and TERMINAL on startup
-exec --no-startup-id swaymsg 'workspace 1; exec qutebrowser; workspace 2; exec kitty tmux-startup.sh'
+exec --no-startup-id swaymsg 'workspace 1; exec $browser; workspace 2; exec $terminal -e tmux-startup.sh'
 
 # === Include other config files
 

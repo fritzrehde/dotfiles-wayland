@@ -1,7 +1,9 @@
 #!/bin/sh
 
+dotfiles_dir=~/git/dotfiles-wayland
+
 _git() {
-	git -C ~/dotfiles "$@"
+	git -C "$dotfiles_dir" "$@"
 }
 
 COMMIT_MSG="$(rofi.sh top -p "commit-msg")" || exit 1

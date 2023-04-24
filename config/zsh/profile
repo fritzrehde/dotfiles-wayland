@@ -26,3 +26,6 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 
 ## fzf
 source ~/.config/fzf/config.sh
+
+## ssh
+eval $(keychain --eval id_rsa)

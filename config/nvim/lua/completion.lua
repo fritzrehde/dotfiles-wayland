@@ -54,7 +54,6 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 require('mason').setup()
 
 -- Enable the following language servers
--- local servers = { 'rust_analyzer', 'clangd', 'jdtls' }
 local servers = { 'rust_analyzer', 'clangd' }
 
 -- Ensure the servers above are installed

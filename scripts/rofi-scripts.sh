@@ -23,6 +23,7 @@ SCRIPTS=$(
 	new-script
 	window-name
 	rofi-pass
+	mirror-output
 	END
 )
 

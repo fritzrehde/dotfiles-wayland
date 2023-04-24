@@ -13,21 +13,25 @@ case "$1" in
 			&& printf "ﱾ"
 		;;
 	toggle|t)
-		if nordvpn status | grep -q "Connected"; then
-			vpn.sh disconnect
-		else
-			vpn.sh connect
-		fi
+		# if nordvpn status | grep -q "Connected"; then
+		# 	vpn.sh disconnect
+		# else
+		# 	vpn.sh connect
+		# fi
 		;;
 	connect|c)
-		login
-		nordvpn connect && polybar-reload.sh vpn
+		# login
+		# nordvpn connect && polybar-reload.sh vpn
+		nmcli connection up nordvpn \
+			&& notify-send "NordVPN connected"
 		;;
 	disconnect|d)
-		nordvpn disconnect && polybar-reload.sh vpn
+		# nordvpn disconnect && polybar-reload.sh vpn
+		nmcli connection down nordvpn \
+			&& notify-send "NordVPN disconnected"
 		;;
 	status|s)
-		nordvpn status
+		# nordvpn status
 		;;
 	*)
 		echo "Usage: $(basename $0) [toggle|connect|disconnect|status]"

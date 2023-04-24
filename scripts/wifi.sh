@@ -2,11 +2,10 @@
 
 case "$1" in
 	list)
-		nmcli --fields "SSID,IN-USE,BARS,SIGNAL,RATE,SECURITY" --terse --colors "no" device wifi list \
-			| column -t -s ":" -o "  "
+		nmcli --fields "SSID,IN-USE,BARS,SIGNAL,RATE,SECURITY" --terse --colors "no" device wifi list
 		;;
 	connect)
-		SSID="$(echo "$LINES" | awk '{ print $1 }' FS="  ")"
+		SSID="$(echo "$LINES" | cut -d ":" -f 1)"
 		if nmcli connection up "$SSID"; then
 			notify-send "Connected \"$SSID\""
 		else
@@ -18,11 +17,11 @@ case "$1" in
 		fi
 		;;
 	disconnect)
-		SSID="$(echo "$LINES" | awk '{ print $1 }' FS="  ")"
+		SSID="$(echo "$LINES" | cut -d ":" -f 1)"
 		nmcli connection down "$SSID" \
 			&& notify-send "Disconnected \"$SSID\""
 		;;
 	*)
-		watchbind -c ~/dotfiles/config/watchbind/wifi.toml
+		watchbind -c $XDG_CONFIG_HOME/watchbind/wifi.toml
 		;;
 esac

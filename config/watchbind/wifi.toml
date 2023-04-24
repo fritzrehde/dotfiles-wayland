@@ -1,5 +1,6 @@
 command = "wifi.sh list"
 interval = 1.0
+field-seperator = ":"
 
 [keybindings]
 "l" = [ "wifi.sh connect", "reload" ]

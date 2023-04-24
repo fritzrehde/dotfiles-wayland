@@ -63,7 +63,7 @@ c.tabs.title.format = "{audio}{index}: {current_title}"
 # config.unbind('<Alt-v>')
 config.bind('<Alt-r>', 'config-source ;; message-info "qutebrowser reloaded"')
 config.bind('<Alt-p>', 'spawn --userscript qute-pass')
-config.bind('<Alt-o>', 'spawn --userscript qute-pass --password-only')
+# config.bind('<Alt-P>', 'spawn --userscript qute-pass --password-only')
 
 ## zoom
 config.bind('-', 'zoom-out')
@@ -108,8 +108,8 @@ config.bind('q', 'jseval -q document.activeElement.blur()')
 config.bind('<Escape>', 'mode-leave ;; jseval -q document.activeElement.blur()', mode='insert')
 
 ## marks
-config.bind('m', 'set-cmd-text -s :set-mark')
-config.bind('M', 'set-cmd-text -s :jump-mark')
+# config.bind('m', 'set-cmd-text -s :set-mark')
+# config.bind('M', 'set-cmd-text -s :jump-mark')
 
 ## paste
 config.bind('p', 'open -- {clipboard}')

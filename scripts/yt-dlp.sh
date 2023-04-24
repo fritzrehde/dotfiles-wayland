@@ -22,6 +22,7 @@ stdbuf -oL yt-dlp \
 	"$@" \
 	| stdbuf -i0 -oL awk '{ printf "%02d,%.1f MB/s,%d MB\n", $1, $2/1000000, $3/1000000 }' FS="," \
 	| while read PERC SPEED SIZE; do 
+	# TODO: limit to every half a second roughly, ignore if more often than that
 	notify-send "Download ${PERC}% at ${SPEED} of ${SIZE}" "$TITLE" -r "$ID" -h "int:value:${PERC}" -t 0
 done
 
