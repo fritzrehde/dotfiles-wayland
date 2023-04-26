@@ -4,16 +4,12 @@ SCRIPTS=$(
 	cat <<-END
 	fzf-nvim scripts
 	startup
-	input-settings
-	xrandr-monitor docked
-	xrandr-monitor internal
 	vpn
 	download-clipboard
 	tum-live-download
 	lecturio-download
 	git-dotfiles
 	sys-info
-	time
 	color-picker
 	webcam-preview
 	amphetamine
@@ -24,6 +20,7 @@ SCRIPTS=$(
 	window-name
 	rofi-pass
 	mirror-output
+	sway-move-workspaces-to-output
 	END
 )
 
@@ -45,6 +42,8 @@ case "$CMD" in
 		change-theme.sh toggle
 		;;
 	*)
-		eval "$CMD.sh"
+		# try executing as shell script, otherwise as python script, otherwise fail
+		EXE="$(which ${CMD}.sh)" || "$(which ${CMD}.py)" || exit 1
+		eval "$EXE.sh"
 		;;
 esac

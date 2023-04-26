@@ -1,6 +1,6 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
-# determine the next empty workspace in sway
+# Determine the next empty workspace in sway
 
 import json
 from subprocess import check_output

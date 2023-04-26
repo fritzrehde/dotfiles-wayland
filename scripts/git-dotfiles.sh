@@ -1,6 +1,6 @@
 #!/bin/sh
 
-dotfiles_dir=~/git/dotfiles-wayland
+dotfiles_dir=$HOME/git/dotfiles-wayland
 
 _git() {
 	git -C "$dotfiles_dir" "$@"

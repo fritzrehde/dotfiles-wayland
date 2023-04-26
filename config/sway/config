@@ -1,6 +1,6 @@
 # === Variables
 
-# modifiers (switched with xkb)
+# modifiers (alt and super keys switched using xkb)
 set $mod_alt Mod4
 set $mod_super Mod1
 
@@ -145,6 +145,7 @@ bindsym $mod_alt+Shift+e exit
 
 # == Moving around
 
+# TODO: doesn't work on multi monitor setup
 bindsym $mod_alt+Tab focus right
 
 # TODO: achieve river behaviour: ratio +/- 10px
