@@ -44,6 +44,6 @@ case "$CMD" in
 	*)
 		# try executing as shell script, otherwise as python script, otherwise fail
 		EXE="$(which ${CMD}.sh)" || "$(which ${CMD}.py)" || exit 1
-		eval "$EXE.sh"
+		eval "$EXE"
 		;;
 esac

@@ -187,16 +187,16 @@ bindsym $mod_alt+9 workspace number 9
 bindsym $mod_alt+0 workspace number 10
 
 # move focused container to workspace
-bindsym $mod_alt+Shift+1 move container to workspace number 1, workspace number 1
-bindsym $mod_alt+Shift+2 move container to workspace number 2, workspace number 2
-bindsym $mod_alt+Shift+3 move container to workspace number 3, workspace number 3
-bindsym $mod_alt+Shift+4 move container to workspace number 4, workspace number 4
-bindsym $mod_alt+Shift+5 move container to workspace number 5, workspace number 5
-bindsym $mod_alt+Shift+6 move container to workspace number 6, workspace number 6
-bindsym $mod_alt+Shift+7 move container to workspace number 7, workspace number 7
-bindsym $mod_alt+Shift+8 move container to workspace number 8, workspace number 8
-bindsym $mod_alt+Shift+9 move container to workspace number 9, workspace number 9
-bindsym $mod_alt+Shift+0 move container to workspace number 10, workspace number 10
+bindsym $mod_alt+Shift+1 exec 'sway-move-container-to-workspace.py 1'
+bindsym $mod_alt+Shift+2 exec 'sway-move-container-to-workspace.py 2'
+bindsym $mod_alt+Shift+3 exec 'sway-move-container-to-workspace.py 3'
+bindsym $mod_alt+Shift+4 exec 'sway-move-container-to-workspace.py 4'
+bindsym $mod_alt+Shift+5 exec 'sway-move-container-to-workspace.py 5'
+bindsym $mod_alt+Shift+6 exec 'sway-move-container-to-workspace.py 6'
+bindsym $mod_alt+Shift+7 exec 'sway-move-container-to-workspace.py 7'
+bindsym $mod_alt+Shift+8 exec 'sway-move-container-to-workspace.py 8'
+bindsym $mod_alt+Shift+9 exec 'sway-move-container-to-workspace.py 9'
+bindsym $mod_alt+Shift+0 exec 'sway-move-container-to-workspace.py 0'
 
 
 # == Layout stuff
