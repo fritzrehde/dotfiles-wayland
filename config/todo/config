@@ -1,13 +1,14 @@
 # === EDIT FILE LOCATIONS BELOW ===
 
 # Your todo.txt directory (this should be an absolute path)
-export TODO_DIR="/home/fritz/.config/todo"
-# export TODO_DIR=${HOME:-$USERPROFILE}
+export TODO_DIR="${HOME}/git/todo.txt"
 
 # Your todo/done/report.txt locations
 export TODO_FILE="$TODO_DIR/todo.txt"
-export DONE_FILE="$TODO_DIR/done.txt"
-export REPORT_FILE="$TODO_DIR/report.txt"
+# export DONE_FILE="$TODO_DIR/done.txt"
+# export REPORT_FILE="$TODO_DIR/report.txt"
+export DONE_FILE=/dev/null
+export REPORT_FILE=/dev/null
 
 # You can customize your actions directory location
 #export TODO_ACTIONS_DIR="$HOME/.todo.actions.d"
@@ -51,8 +52,8 @@ export REPORT_FILE="$TODO_DIR/report.txt"
 # Priorities can be any upper-case letter.
 # A,B,C are highlighted; you can add coloring for more.
 #
-export PRI_A=$RED # color for A priority
-# export PRI_B=$GREEN         # color for B priority
+export PRI_A=$RED           # color for A priority
+export PRI_B=$BLUE          # color for B priority
 # export PRI_C=$LIGHT_BLUE    # color for C priority
 # export PRI_D=...            # define your own
 # export PRI_X=$WHITE         # color unless explicitly defined
@@ -64,7 +65,7 @@ export PRI_A=$RED # color for A priority
 
 # There is highlighting for projects, contexts, dates, and item numbers.
 #
-export COLOR_PROJECT=$BROWN
+export COLOR_PROJECT=$GREEN
 export COLOR_CONTEXT=$PURPLE
 # export COLOR_DATE=$BLUE
 # export COLOR_NUMBER=$LIGHT_GREY

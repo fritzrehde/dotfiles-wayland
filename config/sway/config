@@ -21,6 +21,9 @@ set $color_grey #2e3440
 # locations
 set $scripts $XDG_CONFIG_HOME/sway/scripts
 
+# outputs
+set $laptop_display eDP-1
+
 
 # === Looks
 
@@ -284,6 +287,10 @@ bindsym $mod_alt+Shift+p exec 'clipboard.sh rofi-copy'
 # play media from clipboard in mpv
 bindsym $mod_alt+y        exec 'mpv.sh'
 bindsym $mod_alt+Shift+y  exec 'mpv.sh background'
+
+# todo
+bindsym $mod_alt+n  exec 'todo-txt.sh add'
+bindsym $mod_alt+t  exec 'todo-txt.sh list'
 
 
 # === Status Bar
