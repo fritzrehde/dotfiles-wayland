@@ -21,9 +21,6 @@ set $color_grey #2e3440
 # locations
 set $scripts $XDG_CONFIG_HOME/sway/scripts
 
-# outputs
-set $laptop_display eDP-1
-
 
 # === Looks
 
@@ -55,9 +52,6 @@ smart_borders on
 # set wallpaper
 output * bg ~/.config/wallpaper/wallpaper.jpg fill
 
-# fractional scaling
-output $laptop_display scale 1.2
-
 
 # === Idle configuration
 #
@@ -71,9 +65,12 @@ output $laptop_display scale 1.2
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
+# TODO: fix auto sleep once amphetamine works
 exec swayidle -w \
-    timeout 600 "systemctl suspend" \
     before-sleep "waylock -fork-on-lock -init-color 0x000000 -input-color 0x000000"
+# exec swayidle -w \
+#     timeout 600 "systemctl suspend" \
+#     before-sleep "waylock -fork-on-lock -init-color 0x000000 -input-color 0x000000"
 
 
 # === Input configuration
@@ -196,7 +193,7 @@ bindsym $mod_alt+Shift+6 exec 'sway-move-container-to-workspace.py 6'
 bindsym $mod_alt+Shift+7 exec 'sway-move-container-to-workspace.py 7'
 bindsym $mod_alt+Shift+8 exec 'sway-move-container-to-workspace.py 8'
 bindsym $mod_alt+Shift+9 exec 'sway-move-container-to-workspace.py 9'
-bindsym $mod_alt+Shift+0 exec 'sway-move-container-to-workspace.py 0'
+bindsym $mod_alt+Shift+0 exec 'sway-move-container-to-workspace.py 10'
 
 
 # == Layout stuff
@@ -314,6 +311,9 @@ for_window [app_id="zathura"] exec 'swaymsg [workspace=$tmp_ws] move container t
 
 
 # === Start external apps
+
+# output management
+exec_always 'kanshi'
 
 # clipboard
 exec 'wl-paste --watch cliphist store'

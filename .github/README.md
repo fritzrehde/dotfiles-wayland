@@ -22,14 +22,6 @@ Name | Description
 :-- | :--
 [zathura](https://github.com/pwmt/zathura) | Document viewer
 [fzf](https://github.com/junegunn/fzf) | Fuzzy finder
-[todo.sh](https://github.com/todotxt/todo.txt-cli) | Minimal todo list
+[todo.txt](https://github.com/todotxt/todo.txt-cli) | Minimal todo list
 [rofi](https://github.com/davatorium/rofi) | Modern dmenu alternative
 [ly](https://github.com/fairyglade/ly) | TUI display manager
-
-## What are dotfiles?
-Dotfiles are the configuration files that are used to customize Unix-based systems.
-Dotfiles are hidden files or directories which have names that start with a dot/period.
-
-This repository contains my personal dotfiles.
-They are stored here for convenience so that I can quickly access them on new machines.
-Also, others may find some of my configurations helpful in customising their own dotfiles.
