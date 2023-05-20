@@ -7,8 +7,8 @@ case "$1" in
 			| paste -d "," - - | grep "MiB" | sort -nrk 2 -t "," \
 			| column -s "," -t
 		;;
-	delete-cache)
-		sudo pacman -Sc
+	rm-cache)
+		yay -Scc
 		;;
 	*)
 		echo "Usage: $(basename $0) [list|delete-cache]" 1>&2

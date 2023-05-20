@@ -295,7 +295,9 @@ bindsym $mod_alt+t  exec 'todo-txt.sh list'
 
 # === Status Bar
 
-bar swaybar_command waybar
+bar {
+    swaybar_command waybar
+}
 
 
 # === Criteria (rules)
@@ -306,7 +308,6 @@ set $tmp_ws t
 
 # current hacky solution: open app in "$tmp_ws" workspace first, and then move to next empty
 # ideal solution (invalid as "$()" not evaluated): for_window [app_id="mpv"] move container to workspace $($scripts/sway-next-empty-workspace.sh)
-
 
 # mpv
 assign     [app_id="mpv"] workspace $tmp_ws
@@ -320,7 +321,7 @@ for_window [app_id="zathura"] exec 'swaymsg [workspace=$tmp_ws] move container t
 # === Start external apps
 
 # output management
-exec_always 'kanshi'
+exec_always pkill kanshi; exec kanshi
 
 # clipboard
 exec 'wl-paste --watch cliphist store'
@@ -330,6 +331,9 @@ exec 'dunst'
 
 # adjust color temperature
 exec 'gammastep'
+
+# transmission
+exec 'transmission-daemon'
 
 # open BROWSER and TERMINAL on startup
 exec --no-startup-id swaymsg 'workspace 1; exec $browser; workspace 2; exec $terminal -e tmux-startup.sh'

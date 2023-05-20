@@ -20,11 +20,14 @@ SCRIPTS=$(
 	window-name
 	rofi-pass
 	mirror-output
+	sway-cursor show
+	sway-cursor hide
 	sway-move-workspaces-to-output
 	END
 )
 
 CMD=$(echo "$SCRIPTS" | rofi.sh default)
+# TODO: remove having to specify this for each, just remove .sh or .py from all scripts
 case "$CMD" in
 	"fzf-nvim scripts")
 		tmux display-popup -w 50% -h 60% -E "fzf-nvim.sh scripts"
@@ -34,6 +37,12 @@ case "$CMD" in
 		;;
 	"xrandr-monitor internal")
 		xrandr-monitor.sh internal
+		;;
+	"sway-cursor show")
+		sway-cursor.sh show
+		;;
+	"sway-cursor hide")
+		sway-cursor.sh hide
 		;;
 	vpn)
 		vpn.sh toggle

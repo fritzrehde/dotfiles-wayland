@@ -1,12 +1,12 @@
-command = "torrent.sh list"
+command = "torrent.py list"
 interval = 1
-field-seperator = ","
 header-lines = 1
+field-seperator = ","
 
 [keybindings]
-"p" = [ "torrent.sh add", "reload" ]
-"f" = [ "torrent.sh file", "reload", "unselect-all" ]
-"l" = [ "torrent.sh start", "reload", "unselect-all" ]
-"h" = [ "torrent.sh stop", "reload", "unselect-all" ]
-"x" = [ "torrent.sh remove", "reload", "unselect-all" ]
-"X" = [ "torrent.sh delete", "reload", "unselect-all" ]
+"p" = [ "torrent.py add", "reload" ]
+"l" = [ "torrent.py start", "reload", "unselect-all" ]
+"h" = [ "torrent.py stop", "reload", "unselect-all" ]
+"x" = [ "torrent.py remove", "reload", "unselect-all" ]
+"X" = [ "torrent.py delete", "reload", "unselect-all" ]
+"f" = [ "torrent.py file", "reload", "unselect-all" ]
