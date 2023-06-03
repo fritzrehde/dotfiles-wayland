@@ -41,6 +41,11 @@ def status_str(code):
             exit(1)
 
 
+def add_torrent():
+    if (torrent_link := get_clipboard_content()) is not None:
+        subprocess.run(["transmission-remote", "--add", torrent_link])
+
+
 def list_torrents():
     print_str = "ID,STATUS,BAR,PERC,DOWN,UP,NAME\n"
     output = subprocess.run(["transmission-remote", "--json", "--list"], capture_output=True, text=True).stdout
@@ -69,7 +74,7 @@ def list_torrents():
         # transformed data
         status = status_str(status_code)
         percentage = floor(((size_total - size_left) * 100) / size_total)
-        progress_bar = subprocess.run(['asciibar', '--min=0', '--max=100', '--length=10', '--border=|', f'{percentage}'])
+        progress_bar = subprocess.run(['asciibar', '--min=0', '--max=100', '--length=10', '--border="|"', f'{percentage}'])
         download = f'{(download / 1000000):.1f} MB/s'
         upload = f'{(upload / 1000000):.1f} KB/s'
 
@@ -89,8 +94,8 @@ def file_torrents():
 def main():
     match len(sys.argv):
         case 1:
-            # TODO: extract XDG_CONFIG_HOME from env
-            subprocess.run("watchbind --config-file $XDG_CONFIG_HOME/watchbind/torrent.toml", shell=True)
+            if (xdg_config_home := os.environ.get("XDG_CONFIG_HOME")) is not None:
+                subprocess.run(["watchbind", "--config-file", f"{xdg_config_home}/watchbind/torrent.toml"])
         case 2:
             sub_command = sys.argv[1]
             match sub_command:
@@ -99,7 +104,7 @@ def main():
                 case "file":
                     file_torrents()
                 case "add":
-                    subprocess.run(["transmission-remote", "--add", get_clipboard_content()])
+                    add_torrent()
                 case "start":
                     transmission_exec_on_all("--start")
                 case "stop":

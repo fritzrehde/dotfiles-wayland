@@ -145,8 +145,7 @@ bindsym $mod_alt+Shift+e exit
 
 # == Moving around
 
-# TODO: doesn't work on multi monitor setup
-bindsym $mod_alt+Tab focus right
+bindsym $mod_alt+Tab exec 'sway-change-focus.py'
 
 # TODO: achieve river behaviour: ratio +/- 10px
 # change window size
@@ -279,8 +278,10 @@ bindsym XF86Favorites exec 'swaymsg output $laptop_display power toggle'
 # rofi
 bindsym $mod_alt+Escape  exec 'rofi-power.sh'
 # TODO: icons have low resolution
-bindsym $mod_alt+d       exec 'rofi -show drun -theme ~/.config/rofi/themes/icons-$(theme.sh).rasi'
 bindsym $mod_alt+s       exec 'rofi-scripts.sh'
+bindsym $mod_alt+d       exec 'rofi -show drun -theme ~/.config/rofi/themes/icons-$(theme.sh).rasi'
+# bindsym $mod_alt+o       exec 'rofi -show calc -theme ~/.config/rofi/themes/default-$(theme.sh).rasi'
+bindsym $mod_alt+o       exec 'rofi-calc.sh'
 bindsym $mod_alt+p       exec 'clipboard.sh rofi-paste'
 bindsym $mod_alt+Shift+p exec 'clipboard.sh rofi-copy'
 

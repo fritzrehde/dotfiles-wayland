@@ -1,34 +1,26 @@
 #!/bin/sh
 
-login() {
-	if ! nordvpn account > /dev/null; then
-		TOKEN="$(pass nordvpn.com/token)"
-		nordvpn login --token "$TOKEN"
-	fi
-}
+VPN="nordvpn"
 
 case "$1" in
 	icon)
-		nordvpn status | grep -q "Status: Connected" \
-			&& printf "ﱾ"
+		# nordvpn status | grep -q "Status: Connected" \
+		# 	&& printf "ﱾ"
 		;;
 	toggle|t)
-		# if nordvpn status | grep -q "Connected"; then
-		# 	vpn.sh disconnect
-		# else
-		# 	vpn.sh connect
-		# fi
+		if nmcli connection show --active | grep -q "$VPN"; then
+			$0 disconnect
+		else
+			$0 connect
+		fi
 		;;
 	connect|c)
-		# login
-		# nordvpn connect && polybar-reload.sh vpn
-		nmcli connection up nordvpn \
-			&& notify-send "NordVPN connected"
+		nmcli connection up "$VPN" \
+			&& notify-send "${VPN} connected"
 		;;
 	disconnect|d)
-		# nordvpn disconnect && polybar-reload.sh vpn
-		nmcli connection down nordvpn \
-			&& notify-send "NordVPN disconnected"
+		nmcli connection down "$VPN" \
+			&& notify-send "${VPN} disconnected"
 		;;
 	status|s)
 		# nordvpn status

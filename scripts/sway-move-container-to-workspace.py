@@ -1,18 +1,23 @@
 #!/usr/bin/env python
 
+# Move focused container to specified workspace, but if desired workspace is already focused, move focused workspace to next output
+
 import argparse
 import json
 import subprocess
 import sys
+
 
 def get_focused_workspace():
     """Returns the number of the currently focused workspace."""
     workspaces = json.loads(subprocess.run(["swaymsg", "-t", "get_workspaces"], capture_output=True, text=True).stdout)
     return next((ws["num"] for ws in workspaces if ws["focused"]), None)
 
+
 def move_container_to_workspace(desired_ws):
     """Moves the focused container to the desired workspace."""
     subprocess.run(["swaymsg", f"move container to workspace number {desired_ws}; workspace number {desired_ws}"])
+
 
 def move_workspace_to_next_output():
     """Moves the focused workspace to the next output."""
@@ -30,6 +35,7 @@ def move_workspace_to_next_output():
 
     subprocess.run(["swaymsg", f"move workspace to {next_output}"])
 
+
 def main():
     parser = argparse.ArgumentParser(description='Move focused container to workspace, but if desired workspace is already focused, move focused workspace to next output')
     parser.add_argument('desired_ws', type=int, help='the desired workspace number')
@@ -44,6 +50,7 @@ def main():
         move_workspace_to_next_output()
     else:
         move_container_to_workspace(args.desired_ws)
+
 
 if __name__ == "__main__":
     main()

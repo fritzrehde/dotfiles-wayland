@@ -23,6 +23,7 @@ set statusline+=\ %y " file type
 set statusline+=\ 
 
 set statusline+=%9*
+" set statusline+=\ %{wordcount().words}\ words
 set statusline+=\ :%c " column number
 set statusline+=\ %l/%L " current line/total lines
 set statusline+=\ %p%% " percentage through file

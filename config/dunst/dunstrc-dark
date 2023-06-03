@@ -8,6 +8,7 @@
 # 9987 extra information
 # 9986 timezones
 # 9985 brightness
+# 9984 external monitor brightness
 
 [global]
 	### Display ###

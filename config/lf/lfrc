@@ -1,5 +1,5 @@
 # settings
-set hidden on
+set hidden true
 set period 1
 set scrolloff 10
 set ratios '1:2:5'
