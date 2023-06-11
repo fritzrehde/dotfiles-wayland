@@ -26,7 +26,7 @@ case "$1" in
 		ddcutil setvcp "$brightness" "$value"
 		;;
 	*)
-		echo "Usage: $(basename $0) [brightness-up|brightness-down]" 1>&2
+		echo "Usage: $(basename $0) [brightness-up|brightness-down|brightness-set <val>]" 1>&2
 		exit 1
 		;;
 esac

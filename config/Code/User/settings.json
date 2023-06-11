@@ -1,0 +1,30 @@
+{
+    "workbench.colorTheme": "Nord Light",
+    "editor.fontFamily": "'Bitstream Vera Sans Mono', 'monospace', monospace",
+    "editor.fontSize": 13,
+    "git.openRepositoryInParentFolders": "never",
+    "[rust]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "rust-lang.rust-analyzer",
+        "editor.formatOnPaste": true
+    },
+    "editor.minimap.enabled": false,
+    "workbench.tree.indent": 20,
+    "vim.vimrc.enable": true,
+    "vim.vimrc.path": "$HOME/.config/Code/User/vscodevimrc.vim",
+    "vim.leader": ",",
+    "vim.normalModeKeyBindings": [
+        {
+          "before": ["<leader>", "<space>"],
+          "commands": ["editor.action.commentLine"],
+          "when": "editorTextFocus && !editorReadonly"
+        }
+    ],
+    "vim.visualModeKeyBindings": [
+        {
+          "before": ["<leader>", "<space>"],
+          "commands": ["editor.action.commentLine"],
+          "when": "editorTextFocus && !editorReadonly"
+        }
+    ]
+}

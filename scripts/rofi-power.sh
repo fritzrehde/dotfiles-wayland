@@ -1,17 +1,14 @@
 #!/bin/sh
 
-OPTS=$(
-	cat <<-END
-	 Lock
-	 Suspend
-	 Reboot
-	 Hibernate
-	 Shutdown
-	END
-)
+suspend=" Suspend"
+lock=" Lock"
+display_power="󰚥 Display Power"
+reboot=" Reboot"
+hibernate=" Hibernate"
+shutdown=" Shutdown"
 
-case "$(echo "$OPTS" | rofi.sh power -i)" in
-	" Lock")
+case "$(printf '%s\n' "$display_power" "$suspend" "$lock" "$reboot" "$hibernate" "$shutdown" | rofi.sh power -i)" in
+	"$lock")
 		swayidle \
 			timeout 1 'swaymsg output \* dpms off' \
 			resume    'swaymsg output \* dpms on' \
@@ -24,9 +21,14 @@ case "$(echo "$OPTS" | rofi.sh power -i)" in
 		kill -TERM "$!"
 		wait
 		;;
-	" Suspend") systemctl suspend ;;
-	" Reboot") reboot ;;
-	" Hibernate") systemctl hibernate ;;
-	" Shutdown") shutdown now ;;
+	"$suspend") systemctl suspend ;;
+	"$display_power")
+		swaymsg -t get_outputs | jq -r '.[].name' \
+			| rofi.sh top \
+			| xargs -I {} swaymsg "output {} power toggle"
+		;;
+	"$reboot") reboot ;;
+	"$hibernate") systemctl hibernate ;;
+	"$shutdown") shutdown now ;;
 	*) exit 1 ;;
 esac

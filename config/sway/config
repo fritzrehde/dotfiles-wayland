@@ -153,6 +153,12 @@ bindsym $mod_alt+$left  resize grow left  10px
 bindsym $mod_alt+$down  resize grow down  10px
 bindsym $mod_alt+$up    resize grow up    10px
 bindsym $mod_alt+$right resize grow right 10px
+
+# bindsym $mod_alt+$left  resize grow width  -10px
+# bindsym $mod_alt+$down  resize grow height -10px
+# bindsym $mod_alt+$up    resize grow height 10px
+# bindsym $mod_alt+$right resize grow width  10px
+
 # bindsym $mod_alt+$left  resize grow left  10px, resize shrink right 10px
 # bindsym $mod_alt+$down  resize grow down  10px, resize shrink up    10px
 # bindsym $mod_alt+$up    resize grow up    10px, resize shrink down  10px
@@ -206,8 +212,8 @@ bindsym $mod_alt+f fullscreen
 # You can "split" the current object of your focus with
 # $mod_alt+b or $mod_alt+v, for horizontal and vertical splits
 # respectively.
-bindsym $mod_alt+b splith
-bindsym $mod_alt+v splitv
+# bindsym $mod_alt+b splith
+# bindsym $mod_alt+v splitv
 
 # Switch the current container between different layout styles
 # bindsym $mod_alt+s layout stacking
@@ -215,7 +221,7 @@ bindsym $mod_alt+v splitv
 # bindsym $mod_alt+e layout toggle split
 
 # Toggle the current focus between tiling and floating mode
-# bindsym $mod_alt+Shift+space floating toggle
+bindsym $mod_alt+Shift+space floating toggle
 
 # Swap focus between the tiling area and the floating area
 # bindsym $mod_alt+space focus mode_toggle
