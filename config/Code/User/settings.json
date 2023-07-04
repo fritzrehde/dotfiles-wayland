@@ -1,6 +1,5 @@
 {
-    "workbench.colorTheme": "Nord Light",
-    "editor.fontFamily": "'Bitstream Vera Sans Mono', 'monospace', monospace",
+  "editor.fontFamily": "'Bitstream Vera Sans Mono', 'monospace', monospace",
     "editor.fontSize": 13,
     "git.openRepositoryInParentFolders": "never",
     "[rust]": {
@@ -26,5 +25,13 @@
           "commands": ["editor.action.commentLine"],
           "when": "editorTextFocus && !editorReadonly"
         }
+    ],
+    "workbench.colorTheme": "Visual Studio Light - C++",
+    "debug.onTaskErrors": "abort",
+    "latex-workshop.latex.external.build.command": "make",
+    "latex-workshop.latex.autoBuild.run": "never",
+    "cSpell.language": "en,de-DE",
+    "cSpell.userWords": [
+      "Rehde"
     ]
 }
