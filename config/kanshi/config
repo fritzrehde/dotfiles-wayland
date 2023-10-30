@@ -51,6 +51,131 @@ profile UniComputerLab5 {
   output eDP-1 mode 1920x1080@60Hz scale 1.2 position 480,1440
 }
 
+profile UniComputerLab6 {
+  output "Fujitsu Siemens Computers GmbH P27-8 TS Pro YVAQ607091" mode 2560x1440 position 0,0
+  output eDP-1 mode 1920x1080@60Hz scale 1.2 position 480,1440
+}
+
+profile UniComputerLab7 {
+  output "Fujitsu Siemens Computers GmbH P27-8 TS Pro YVAQ605265" mode 2560x1440 position 0,0
+  output eDP-1 mode 1920x1080@60Hz scale 1.2 position 480,1440
+}
+
+profile UniComputerLab8 {
+  output "Fujitsu Siemens Computers GmbH P27-8 TS Pro YVAQ605257" mode 2560x1440 position 0,0
+  output eDP-1 mode 1920x1080@60Hz scale 1.2 position 480,1440
+}
+
+profile UniComputerLab9 {
+  output "Fujitsu Siemens Computers GmbH P27-8 TS Pro YVAQ603786" mode 2560x1440 position 0,0
+  output eDP-1 mode 1920x1080@60Hz scale 1.2 position 480,1440
+}
+
+profile UniComputerLab10 {
+  output "Fujitsu Siemens Computers GmbH P27-8 TS Pro YVAQ605269" mode 2560x1440 position 0,0
+  output eDP-1 mode 1920x1080@60Hz scale 1.2 position 480,1440
+}
+
+profile UniComputerLab11 {
+  output "Fujitsu Siemens Computers GmbH P27-8 TS Pro YVAQ605255" mode 2560x1440 position 0,0
+  output eDP-1 mode 1920x1080@60Hz scale 1.2 position 480,1440
+}
+
+profile UniComputerLab12 {
+  output "Fujitsu Siemens Computers GmbH P27-8 TS Pro YVAQ602460" mode 2560x1440 position 0,0
+  output eDP-1 mode 1920x1080@60Hz scale 1.2 position 480,1440
+}
+
+profile UniComputerLab13 {
+  output "Fujitsu Siemens Computers GmbH P27-8 TS Pro YVAQ605528" mode 2560x1440 position 0,0
+  output eDP-1 mode 1920x1080@60Hz scale 1.2 position 480,1440
+}
+
+profile UniComputerLab14 {
+  output "Fujitsu Siemens Computers GmbH P27-8 TS Pro YVAQ602456" mode 2560x1440 position 0,0
+  output eDP-1 mode 1920x1080@60Hz scale 1.2 position 480,1440
+}
+
+profile UniComputerLab15 {
+  output "Fujitsu Siemens Computers GmbH P27-8 TS Pro YVAQ603641" mode 2560x1440 position 0,0
+  output eDP-1 mode 1920x1080@60Hz scale 1.2 position 480,1440
+}
+
+profile UniComputerLab16 {
+  output "Fujitsu Siemens Computers GmbH P27-8 TS Pro YVAQ603629" mode 2560x1440 position 0,0
+  output eDP-1 mode 1920x1080@60Hz scale 1.2 position 480,1440
+}
+
+profile UniComputerLab17 {
+  output "Fujitsu Siemens Computers GmbH P27-8 TS Pro YVAQ602469" mode 2560x1440 position 0,0
+  output eDP-1 mode 1920x1080@60Hz scale 1.2 position 480,1440
+}
+
+profile UniComputerLab18 {
+  output "Fujitsu Siemens Computers GmbH P27-8 TS Pro YVAQ603625" mode 2560x1440 position 0,0
+  output eDP-1 mode 1920x1080@60Hz scale 1.2 position 480,1440
+}
+
+profile UniComputerLab19 {
+  output "Fujitsu Siemens Computers GmbH P27-8 TS Pro YVAQ607207" mode 2560x1440 position 0,0
+  output eDP-1 mode 1920x1080@60Hz scale 1.2 position 480,1440
+}
+
+profile UniComputerLab20 {
+  output "Fujitsu Siemens Computers GmbH P27-8 TS Pro YVAQ603645" mode 2560x1440 position 0,0
+  output eDP-1 mode 1920x1080@60Hz scale 1.2 position 480,1440
+}
+
+profile UniComputerLab21 {
+  output "Fujitsu Siemens Computers GmbH P27-8 TS Pro YVAQ607581" mode 2560x1440 position 0,0
+  output eDP-1 mode 1920x1080@60Hz scale 1.2 position 480,1440
+}
+
+profile UniComputerLab22 {
+  output "Fujitsu Siemens Computers GmbH P27-8 TS Pro YVAQ607111" mode 2560x1440 position 0,0
+  output eDP-1 mode 1920x1080@60Hz scale 1.2 position 480,1440
+}
+
+profile UniComputerLab23 {
+  output "Fujitsu Siemens Computers GmbH P27-8 TS Pro YVAQ607110" mode 2560x1440 position 0,0
+  output eDP-1 mode 1920x1080@60Hz scale 1.2 position 480,1440
+}
+
+profile UniComputerLab24 {
+  output "Fujitsu Siemens Computers GmbH P27-8 TS Pro YVAQ607107" mode 2560x1440 position 0,0
+  output eDP-1 mode 1920x1080@60Hz scale 1.2 position 480,1440
+}
+
+profile UniComputerLab25 {
+  output "Fujitsu Siemens Computers GmbH P27-8 TS Pro YVAQ607128" mode 2560x1440 position 0,0
+  output eDP-1 mode 1920x1080@60Hz scale 1.2 position 480,1440
+}
+
+profile UniComputerLab26 {
+  output "Fujitsu Siemens Computers GmbH P27-8 TS Pro YVAQ607139" mode 2560x1440 position 0,0
+  output eDP-1 mode 1920x1080@60Hz scale 1.2 position 480,1440
+}
+
+profile UniComputerLab27 {
+  output "Fujitsu Siemens Computers GmbH P27-8 TS Pro YVAQ607583" mode 2560x1440 position 0,0
+  output eDP-1 mode 1920x1080@60Hz scale 1.2 position 480,1440
+}
+
+profile UniComputerLab28 {
+  output "Fujitsu Siemens Computers GmbH P27-8 TS Pro YVAQ603649" mode 2560x1440 position 0,0
+  output eDP-1 mode 1920x1080@60Hz scale 1.2 position 480,1440
+}
+
+profile UniComputerLab29 {
+  output "Fujitsu Siemens Computers GmbH P27-8 TS Pro YVAQ607089" mode 2560x1440 position 0,0
+  output eDP-1 mode 1920x1080@60Hz scale 1.2 position 480,1440
+}
+
+profile UniComputerLab30 {
+  output "Fujitsu Siemens Computers GmbH P27-8 TS Pro YVAQ605340" mode 2560x1440 position 0,0
+  output eDP-1 mode 1920x1080@60Hz scale 1.2 position 480,1440
+}
+
 
 profile UniDSE {
   output "Dell Inc. DELL U2412M 30WJ1616434L" mode 1920x1200 position 0,0
@@ -84,5 +209,10 @@ profile UniDSE6 {
 
 profile UniDSE7 {
   output "Dell Inc. DELL U2412M 30WJ161643DL" mode 1920x1200 position 0,0
+  output eDP-1 mode 1920x1080@60Hz scale 1.2 position 160,1200
+}
+
+profile UniDSE8 {
+  output "Dell Inc. DELL U2412M 30WJ1616436L" mode 1920x1200 position 0,0
   output eDP-1 mode 1920x1080@60Hz scale 1.2 position 160,1200
 }

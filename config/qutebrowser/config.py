@@ -13,6 +13,10 @@ config.set('content.javascript.enabled', True, 'devtools://*')
 config.set('content.javascript.enabled', True, 'chrome://*/*')
 config.set('content.javascript.enabled', True, 'qute://*/*')
 
+# Disable "do not track" header for certain websites
+c.content.headers.do_not_track = False
+# config.set('content.headers.do_not_track', False, '*://chat.openai.com/*')
+
 # colors
 c.tabs.show = 'multiple'
 config.source('colors.py')
@@ -24,7 +28,7 @@ c.fonts.default_family = 'Bitstream Vera Sans Mono'
 
 # settings
 c.qt.force_platform = 'wayland'
-config.set('content.javascript.can_access_clipboard', True)
+config.set('content.javascript.clipboard', 'access-paste')
 c.editor.command = ['kitty', 'nvim', '{file}', '-c', 'normal {line}G{column0}l']
 c.messages.timeout = 1000
 
@@ -80,10 +84,10 @@ config.bind('<Alt-j>', 'tab-prev')
 config.bind('<Alt-k>', 'tab-next')
 config.bind('<Alt-Left>', 'tab-move -')
 config.bind('<Alt-Right>', 'tab-move +')
-config.bind('<Alt-n>', 'set-cmd-text -s :open -t')
-config.bind('<Alt-o>', 'set-cmd-text -s :open -t {url}')
-config.bind('<Alt-Shift-n>', 'set-cmd-text -s :open -p')
-config.bind('<Alt-b>', 'set-cmd-text -s :quickmark-load -t')
+config.bind('<Alt-n>', 'cmd-set-text -s :open -t')
+config.bind('<Alt-o>', 'cmd-set-text -s :open -t {url}')
+config.bind('<Alt-Shift-n>', 'cmd-set-text -s :open -p')
+config.bind('<Alt-b>', 'cmd-set-text -s :quickmark-load -t')
 config.bind('x', 'tab-close')
 config.unbind('d')
 config.bind('w', 'tab-give')

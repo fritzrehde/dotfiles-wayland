@@ -3,10 +3,6 @@
 VPN="nordvpn"
 
 case "$1" in
-	icon)
-		# nordvpn status | grep -q "Status: Connected" \
-		# 	&& printf "ﱾ"
-		;;
 	toggle|t)
 		if nmcli connection show --active | grep -q "$VPN"; then
 			$0 disconnect

@@ -1,10 +1,38 @@
-command = "gdrive.sh list"
-interval = 2.0
+# command = "gdrive.sh list"
+# interval = 2.0
+
+# [keybindings]
+# "J" = [ "down 12" ]
+# "K" = [ "up 12" ]
+# "x" = [ "gdrive.sh delete", "reload", "unselect-all" ]
+# "l" = [ "gdrive.sh download &" ]
+# "p" = [ "gdrive.sh upload &" ]
+# "u" = [ "gdrive.sh space-used &" ]
+
+watched-command = "gdrive.py list"
+initial-env = [ "set-env pwd -- printf \"\"" ]
+interval = 1.0
+header-lines = 1
+field-separator = ","
 
 [keybindings]
-"J" = [ "down 12" ]
-"K" = [ "up 12" ]
-"x" = [ "gdrive.sh delete", "reload", "unselect-all" ]
-"l" = [ "gdrive.sh download &" ]
-"p" = [ "gdrive.sh upload &" ]
-"u" = [ "gdrive.sh space-used &" ]
+"J" = [ "cursor down 12" ]
+"K" = [ "cursor up 12" ]
+"x" = [ "exec -- gdrive.py delete", "reload", "unselect-all" ]
+
+# "l" = [ "gdrive.py download &" ]
+# "p" = [ "gdrive.py upload &" ]
+# "u" = [ "gdrive.py space-used &" ]
+
+# Traverse into directories
+"l" = [ 
+  "set-env pwd -- gdrive.py enter-dir",
+  "reload"
+]
+
+# # Traverse out of directories
+# "h" = [ 
+#   # Set $pwd to the parent dir of current dir
+#   '''set-env pwd -- printf "$(dirname "$pwd")"''',
+#   "reload"
+# ]

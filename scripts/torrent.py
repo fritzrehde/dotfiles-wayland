@@ -54,9 +54,8 @@ def list_torrents():
     except Exception:
         print(f"""
         Error: parsing the output into JSON failed.
-        output start:
+        output:
         {output}
-        output end:
         """, file=sys.stderr)
         exit(1)
 

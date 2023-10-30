@@ -1,0 +1,5 @@
+watched-command = "typos-tui.py list"
+interval = 0  # the list of spelling mistakes only changes once we've corrected some (if other files are not edited in the background, which is assumed)
+
+[keybindings]
+"l" = [ "exec -- typos-tui.py correct", "reload" ]

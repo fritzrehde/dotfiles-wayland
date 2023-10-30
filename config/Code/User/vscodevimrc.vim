@@ -28,3 +28,8 @@ vnoremap < <gv
 vnoremap > >gv
 nnoremap < <<
 nnoremap > >>
+
+" split sentences into lines using split-sentences.py
+" nnoremap <leader>ss :!split-sentences.py<CR>
+nnoremap <silent> ss :'<,'>!split-sentences.py<CR>
+vnoremap <silent> ss :'<,'>!split-sentences.py<CR>

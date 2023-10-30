@@ -7,20 +7,8 @@ reboot=" Reboot"
 hibernate=" Hibernate"
 shutdown=" Shutdown"
 
-case "$(printf '%s\n' "$display_power" "$suspend" "$lock" "$reboot" "$hibernate" "$shutdown" | rofi.sh power -i)" in
-	"$lock")
-		swayidle \
-			timeout 1 'swaymsg output \* dpms off' \
-			resume    'swaymsg output \* dpms on' \
-			&
-
-		# lock screen and wait for it to be unlocked
-		waylock -init-color 0x000000 -input-color 0x000000
-
-		# terminate swayidle and clean up PID
-		kill -TERM "$!"
-		wait
-		;;
+case "$(printf '%s\n' "$suspend" "$display_power" "$lock" "$reboot" "$hibernate" "$shutdown" | rofi.sh power -i)" in
+	"$lock") lock-screen.sh --turn-off-display ;;
 	"$suspend") systemctl suspend ;;
 	"$display_power")
 		swaymsg -t get_outputs | jq -r '.[].name' \
