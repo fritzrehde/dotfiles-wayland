@@ -117,11 +117,11 @@ let g:indent_blankline_show_trailing_blankline_indent = v:false
 
 Plug 'norcalli/nvim-colorizer.lua'
 
-Plug 'williamboman/mason.nvim'
-Plug 'williamboman/mason-lspconfig.nvim'
-Plug 'neovim/nvim-lspconfig'
-Plug 'hrsh7th/nvim-cmp'
-Plug 'hrsh7th/cmp-nvim-lsp'
+" Plug 'williamboman/mason.nvim'
+" Plug 'williamboman/mason-lspconfig.nvim'
+" Plug 'neovim/nvim-lspconfig'
+" Plug 'hrsh7th/nvim-cmp'
+" Plug 'hrsh7th/cmp-nvim-lsp'
 
 call plug#end()
 
@@ -131,10 +131,10 @@ lua require'colorizer'.setup()
 
 
 " === Lua
-lua require('completion')
+" lua require('completion')
 
 
 " === IDE-like behaviour
 
 " Rust
-au BufWritePost *.rs :silent !rustfmt %
+" au BufWritePost *.rs :silent !rustfmt %

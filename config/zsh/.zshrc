@@ -10,8 +10,7 @@ alias open="xdg-open"
 alias jo="joshuto"
 
 ## git
-alias gp='git pull'
-# alias gs='git status'
+# alias gc='git clone "$1" && cd $(basename "$1" | sed -e "s/.git//g")'
 alias gd='git diff | diff-so-fancy'
 
 ## shell scripts
@@ -25,11 +24,7 @@ alias new='new-script.sh'
 
 # Functions --------------------------------------------------------------------
 function gc() {
-	if git clone -q "$1"; then
-		cd $(basename "$1" | sed -e 's/.git//g')
-		clear
-		exa --tree
-	fi
+	git clone "$1" && cd "$(basename "$1" | sed -e "s/.git//g")"
 }
 #-------------------------------------------------------------------------------
 

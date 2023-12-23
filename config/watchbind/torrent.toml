@@ -1,12 +1,12 @@
-command = "torrent.py list"
+watched-command = "torrent.py list"
 interval = 1
 header-lines = 1
-field-seperator = ","
+field-separator = ","
 
 [keybindings]
-"p" = [ "torrent.py add", "reload" ]
-"l" = [ "torrent.py start", "reload", "unselect-all" ]
-"h" = [ "torrent.py stop", "reload", "unselect-all" ]
-"x" = [ "torrent.py remove", "reload", "unselect-all" ]
-"X" = [ "torrent.py delete", "reload", "unselect-all" ]
-"f" = [ "torrent.py file", "reload", "unselect-all" ]
+"p" = [ "exec -- torrent.py add", "reload" ]
+"l" = [ "exec -- torrent.py start", "reload", "unselect-all" ]
+"h" = [ "exec -- torrent.py stop", "reload", "unselect-all" ]
+"x" = [ "exec -- torrent.py remove", "reload", "unselect-all" ]
+"X" = [ "exec -- torrent.py delete", "reload", "unselect-all" ]
+"f" = [ "exec -- torrent.py file", "reload", "unselect-all" ]

@@ -26,9 +26,12 @@ def correct_single_spelling_mistake(typos_line):
     correct_word = parts[3].split('`')[3]
 
     # Use sed to replace the word in-place in the specified file and line
-    subprocess.run(["sed", f"{line_num}s/\\b{wrong_word}\\b/{correct_word}/", "-i", file_path])
-
-    print(f"Correct spelling mistake: {typos_line}")
+    result = subprocess.run(["sed", f"{line_num}s/{wrong_word}/{correct_word}/", "-i", file_path], stderr=subprocess.PIPE, text=True)
+    if result.returncode == 0:
+        print(f"Corrected spelling mistake: {typos_line}")
+    else:
+        print(f"Failed to correct spelling mistake: {typos_line} with:\n{result.stderr}", file=sys.stderr)
+        exit(1)
 
 
 def correct_spelling_mistakes():
@@ -41,9 +44,12 @@ def correct_spelling_mistakes():
 def list_all_spelling_mistakes():
     """Prints a list of all spelling mistakes by calling `typos`"""
 
-    print(subprocess.run(["typos", "--format", "brief"], capture_output=True, text=True).stdout)
+    # print("listing all spelling mistakes with typos")
+    print(subprocess.run(["typos", "--format", "brief"], capture_output=True, text=True).stdout, end="")
+    # print("finished executing typos")
 
 
+# TODO: improve by using argparse
 def main():
     match len(sys.argv):
         # No args

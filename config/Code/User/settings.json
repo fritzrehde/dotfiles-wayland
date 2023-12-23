@@ -3,13 +3,13 @@
     "editor.fontSize": 13,
     "git.openRepositoryInParentFolders": "never",
     "[dart]": {
-        "editor.formatOnSave": true,
+        "editor.formatOnSave": true
     },
     "[python]": {
-        "editor.formatOnSave": true,
+        "editor.formatOnSave": true
     },
     "[java]": {
-        "editor.formatOnSave": true,
+        "editor.formatOnSave": true
     },
     "[rust]": {
         "editor.formatOnSave": true,
@@ -50,5 +50,6 @@
     "editor.lineNumbers": "relative",
     "explorer.confirmDragAndDrop": false,
     "redhat.telemetry.enabled": false,
-    "explorer.confirmDelete": false
+    "explorer.confirmDelete": false,
+    "workbench.startupEditor": "none"
 }
