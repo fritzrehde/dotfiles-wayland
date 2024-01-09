@@ -1,8 +1,8 @@
-command = "wifi.sh list"
+watched-command = "wifi.sh list"
 interval = 1.0
-field-seperator = ":"
+field-separator = ":"
 
 [keybindings]
-"l" = [ "wifi.sh connect", "reload" ]
-"enter" = [ "wifi.sh connect", "reload" ]
-"h" = [ "wifi.sh disconnect", "reload" ]
+"l" = [ "exec -- wifi.sh connect", "reload" ]
+"enter" = [ "exec -- wifi.sh connect", "reload" ]
+"h" = [ "exec -- wifi.sh disconnect", "reload" ]

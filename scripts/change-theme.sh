@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# determine new theme
+# Determine new theme
 OLD_THEME="$(theme.sh)"
 case "$1" in
 	reload)
@@ -23,29 +23,31 @@ case "$1" in
 esac
 theme.sh "$NEW_THEME"
 
-# unlink old and link new config file
+# Unlink old and link new config file
 relink() {
 	# TODO: remove $2
 	# FROM="$1"
 	# TO="$(echo "$1" | sed 's/-$NEW_THEME//')"
 	ln -fs ~/.config/$1 ~/.config/$2
 }
+
 relink sway/colors/colors-${NEW_THEME}.conf sway/colors/colors.conf
 relink waybar/style-${NEW_THEME}.css waybar/style.css
 relink qutebrowser/colors-${NEW_THEME}.py qutebrowser/colors.py
 relink nvim/colors/nord-${NEW_THEME}.vim nvim/colors/nord.vim
 relink nvim/statusline-${NEW_THEME}.vim nvim/statusline.vim
-relink alacritty/colors-${NEW_THEME}.yml alacritty/colors.yml
+relink alacritty/colors-${NEW_THEME}.toml alacritty/colors.toml
 relink tmux/colors-${NEW_THEME}.conf tmux/colors.conf
 relink dunst/dunstrc-${NEW_THEME} dunst/dunstrc
 relink gtk-3.0/settings-${NEW_THEME}.ini gtk-3.0/settings.ini
 relink joshuto/theme-${NEW_THEME}.toml joshuto/theme.toml
 relink wallpaper/macos-mojave-${NEW_THEME}.jpg wallpaper/wallpaper.jpg
+relink watchbind/config-${NEW_THEME}.toml watchbind/config.toml
 for MODE in default top bottom icons power; do
 	relink rofi/themes/${MODE}-${NEW_THEME}.rasi rofi/themes/${MODE}.rasi
 done
 
-# === reload apps
+# === Reload apps
 # sway
 swaymsg reload
 
@@ -62,5 +64,5 @@ nvim-ctl.sh "<esc>:colorscheme nord | source ~/.config/nvim/statusline.vim<cr>" 
 # tmux
 tmux source-file ~/.config/tmux/tmux.conf &
 
-# funst
+# dunst
 dunst.sh &

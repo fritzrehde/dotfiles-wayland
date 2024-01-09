@@ -5,7 +5,7 @@ case "$1" in
 		nmcli --fields "SSID,IN-USE,BARS,SIGNAL,RATE,SECURITY" --terse --colors "no" device wifi list
 		;;
 	connect)
-		SSID="$(echo "$LINES" | cut -d ":" -f 1)"
+		SSID="$(echo "$lines" | cut -d ":" -f 1)"
 		if nmcli connection up "$SSID"; then
 			notify-send "Connected \"$SSID\""
 		else
@@ -17,7 +17,7 @@ case "$1" in
 		fi
 		;;
 	disconnect)
-		SSID="$(echo "$LINES" | cut -d ":" -f 1)"
+		SSID="$(echo "$lines" | cut -d ":" -f 1)"
 		nmcli connection down "$SSID" \
 			&& notify-send "Disconnected \"$SSID\""
 		;;

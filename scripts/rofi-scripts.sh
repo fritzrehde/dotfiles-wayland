@@ -20,6 +20,7 @@ SCRIPTS=$(
 	sway-cursor.sh show
 	sway-cursor.sh hide
 	sway-move-workspaces-to-output.py
+	screenrecording.sh toggle
 	END
 )
 

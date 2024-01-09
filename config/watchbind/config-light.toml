@@ -1,0 +1,10 @@
+# cursor line
+cursor-bg = "gray"
+cursor-boldness = "bold"
+
+# header lines
+header-fg = "blue"
+header-boldness = "non-bold"
+
+# selected lines
+selected-bg = "magenta"
