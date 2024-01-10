@@ -11,14 +11,23 @@ case "$1" in
 		fi
 		;;
 	connect|c)
-		nmcli connection up "$VPN" \
-			&& notify-send "${VPN} connected"
+		if nmcli connection up "$VPN"; then
+			notify-send "${VPN} connected"
+
+			# Notify waybar
+			pkill -RTMIN+6 waybar
+		fi
 		;;
 	disconnect|d)
-		nmcli connection down "$VPN" \
-			&& notify-send "${VPN} disconnected"
+		if nmcli connection down "$VPN"; then
+			notify-send "${VPN} disconnected"
+
+			# Notify waybar
+			pkill -RTMIN+6 waybar
+		fi
 		;;
 	status|s)
+		# TODO
 		# nordvpn status
 		;;
 	*)

@@ -78,6 +78,8 @@ keymap = [
 	# { on = [ "<C-s>" ],     exec = "search none",                                          desc = "Cancel the ongoing search" },
 	# { on = [ "z" ],         exec = "jump zoxide",                                          desc = "Jump to a directory using zoxide" },
 	# { on = [ "Z" ],         exec = "jump fzf",                                             desc = "Jump to a directory, or reveal a file using fzf" },
+	# { on = [ "d" ],         exec = "jump fzf",                                             desc = "Jump to a directory, or reveal a file using fzf" },
+	{ on = [ "<C-d>" ],     exec = '''shell 'dragon-drop --and-exit --icon-only --thumb-size 200 "$1"' --confirm''', desc = "Drag and drop a file or directory" },
 
 	# Linemode
 	# { on = [ "m", "s" ], exec = "linemode size",        desc = "Set linemode to size" },

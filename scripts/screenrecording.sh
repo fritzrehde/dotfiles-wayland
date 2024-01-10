@@ -21,20 +21,23 @@ case "$1" in
 		# Format: YYYYMMDD_HHhMMmSSs
 		timestamp=$(date +"%Y%m%d_%Hh%Mm%Ss")
 		file_name="screenrecording_${timestamp}.mkv"
-    file="$SCREENRECORDINGS_DIR/$file_name"
+		file="$SCREENRECORDINGS_DIR/$file_name"
 
 		# TODO: maybe copy path of recording to clipboard for quick retrieval
 
 		# If a specific region is selected with `slurp`, record only that region
 		if captured_region="$(slurp)"; then
-			wf-recorder --file "$file" --geometry "$captured_region"
+			wf-recorder --file "$file" --geometry "$captured_region" &
 		else
-			wf-recorder --file "$file"
+			wf-recorder --file "$file" &
 		fi
 
 		if [ "$?" -ne 0 ]; then
 			notify-send "Failed to start screenrecording" -t 1000 -u critical
 		fi
+
+		# Notify waybar
+		pkill -RTMIN+5 waybar
 		;;
 	"end")
 		echo "Ending screenrecording"
@@ -44,6 +47,9 @@ case "$1" in
 
 		if [ "$?" -eq 0 ]; then
 			notify-send "Screenrecording completed" -t 1000
+
+			# Notify waybar
+			pkill -RTMIN+5 waybar
 		else
 			notify-send "Failed to end screenrecording" -t 1000 -u critical
 		fi

@@ -5,7 +5,7 @@
     "spacing": 15,
     "modules-left": ["sway/workspaces"],
     "modules-center": ["custom/clock"],
-    "modules-right": ["pulseaudio", "custom/power_usage", "custom/kbd_backlight", "network", "memory", "temperature", "battery"],
+    "modules-right": ["custom/screenrecording", "custom/vpn", "bluetooth", "pulseaudio", "custom/power_usage", "custom/kbd_backlight", "network", "memory", "temperature", "battery"],
     "sway/workspaces": {
         "disable-scroll": true
     },
@@ -51,16 +51,16 @@
         "tooltip-format": "󰈀 {ifname} via {gwaddr}",
         "format-linked": "󰈀 {ifname} (No IP)",
         "format-disconnected": "󰖩 Disconnected",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+        "format-alt": "{ifname}: {ipaddr}/{cidr}",
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
         "format": "{icon} {volume}% {format_source}",
-        "format-bluetooth": " {icon} {volume}% {format_source}",
-        "format-bluetooth-muted": " {icon}   {format_source}",
         "format-muted": "  {format_source}",
         "format-source": " {volume}%",
         "format-source-muted": "",
+        "format-bluetooth": " {icon} {volume}%",
+        "format-bluetooth-muted": " {icon}  ",
         "format-icons": {
             "headphone": "󰋋",
             "hands-free": "󰋋",
@@ -75,17 +75,48 @@
         "format": "{icon} {percent}%",
         "format-icons": ["󰖨"]
     },
+    "bluetooth": {
+      "format": "",
+      "format-connected": "",
+      "format-connected-battery": " {device_battery_percentage}%",
+      "format-device-preference": [ "Fritz's Bose QC35" ], // preference list deciding the displayed device
+      "tooltip-format": "{num_connections} connected",
+      "tooltip-format-connected": "{num_connections} connected\n\n{device_enumerate}",
+      "tooltip-format-enumerate-connected": "{device_alias}",
+      "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_battery_percentage}%"
+    },
     "custom/kbd_backlight": {
         "format": "󰘳 {}",
         "exec": "brightnessctl --device='tpacpi::kbd_backlight' info -m | cut -d ',' -f 4",
-        "restart-interval": 1
+        "restart-interval": 1,
+				"tooltip": false
     },
     "custom/power_usage": {
         "format": "{icon} {}W",
         "format-icons": ["󱐋"],
         "exec": "awk '{ printf(\"%.1f\", $1*10^-6) }' /sys/class/power_supply/BAT0/power_now",
-        "restart-interval": 3
+        "restart-interval": 3,
+				"tooltip": false
+    },
+				// Simply checks whether a tunnel exists or not
+				"custom/vpn": {
+								"format": "VPN ",
+								"exec": "echo '{\"class\": \"connected\"}'",
+								"exec-if": "test -d /proc/sys/net/ipv4/conf/tun0",
+								"return-type": "json",
+								"interval": 3,
+								"signal": 6,
+								"on-click": "vpn.sh disconnect",
+								"tooltip": false
+				},
+    "custom/screenrecording": {
+        "format": " ",
+        "exec": "echo '{\"class\": \"recording\"}'",
+        "exec-if": "pgrep 'wf-recorder'",
+				"return-type": "json",
+        "interval": 5,
+				"signal": 5,
+				"on-click": "screenrecording.sh end",
+				"tooltip": false
     }
 }
-
-# vim: set syntax=json:
