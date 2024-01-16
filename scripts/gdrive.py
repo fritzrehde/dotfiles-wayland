@@ -15,7 +15,7 @@
 # 		| stdbuf -i0 -oL sed -e 's/ //g' -e 's/\//,/' -e 's/,Rate:/,/' -e 's/B//g' -e 's/\/s//' \
 # 		| stdbuf -i0 -oL numfmt -d "," --field=- --from=auto \
 # 		| stdbuf -i0 -oL awk '{ printf "%02d,%.1f MB/s,%d MB\n", $1*100/$2, $3/1000000, $2/1000000 }' FS="," \
-# 		| while read PERC SPEED SIZE; do 
+# 		| while read PERC SPEED SIZE; do
 # 		notify-send "Upload ${PERC}% at ${SPEED} of ${SIZE}" "$TITLE" -r "$ID" -h "int:value:${PERC}" -t 0
 # 	done
 # 	notify-id.sh unlock "$ID"
@@ -61,106 +61,191 @@
 # esac
 
 
+# TODO: cool extra features to support:
+# - sort by different things: alphabetical, file-size
+# - mkdir command, get node's name from text input
+# - display file-size nicely, not in fixed unit, but in nicest to display in specified number of digits (e.g. 4)
+
 import subprocess
 import sys
 import json
 import os
+from typing import List, Tuple, Optional
+
+
+def numfmt(bytes: int, padding: int = None) -> str:
+    if bytes < 0:
+        return ""
+
+    numfmt_cmd = [
+        "numfmt", "--to=iec", "--suffix=B",
+        *([f"--padding={padding}"] if padding is not None else []),
+        f"{bytes}"
+    ]
+    result = subprocess.run(numfmt_cmd, capture_output=True, text=True)
+    return result.stdout.rstrip()
 
 
 def get_selected_line():
     return os.environ.get("line")
 
-# TODO: optimize with list comprehension
-def get_selected_files():
-    lines = os.environ.get("lines", "").split("\n")
-    result = []
 
-    for line in lines:
-        if line:
-            split = line.split(",")
-            result.append((split[0], split[2]))
-
-    return result
+def get_selected_lines():
+    return os.environ.get("lines", "").split("\n")
 
 
-def delete_files():
-    """"Delete/purge all selected files and/or directories."""
-    # TODO: do in parallel
-    for file, is_dir in get_selected_files():
-        if is_dir:
-            subprocess.run(["rclone", "purge", f"gdrive:{file}"])
-        else:
-            subprocess.run(["rclone", "delete", f"gdrive:{file}"])
+def parse_node(line: str) -> Tuple[str, int, bool]:
+    """Parse a node (file or directory) from a string line."""
+    # line with node's attributes: "NAME,SIZE,IS_DIRECTORY"
+    node_name, size, is_dir = line.split(",")
+    # TODO: unclean parsing of bool from string
+    return node_name, size, (is_dir == "True")
+
+
+def get_selected_node() -> Optional[Tuple[str, int, bool]]:
+    # TODO: cleaner syntax like in Rust: Option.map(|line| parse_node(line))
+    if (line := get_selected_line()) is not None:
+        return parse_node(line)
+    else:
+        return None
+
+
+def get_selected_nodes() -> List[Tuple[str, int, bool]]:
+    return [parse_node(line) for line in get_selected_lines() if line]
+
+
+def path_join(path_a, path_b):
+    """Join two gdrive paths."""
+    # TODO: it's not a real path, so maybe that causes problems
+    return os.path.join(path_a, path_b)
+
+
+def delete_nodes():
+    """"Delete all selected nodes (files and/or directories)."""
+    pwd = get_pwd()
+
+    files, dirs = [], []
+    for node_name, _, is_dir in get_selected_nodes():
+        (dirs if is_dir else files).append(path_join(pwd, node_name))
+
+    if files != []:
+        # Delete files in bulk with single rclone command
+        subprocess.run(["rclone", "delete", f"gdrive:", "--files-from=-",
+                        "--drive-use-trash=false"], input="\n".join(files), text=True)
+
+    # TODO: find a way to delete directories in bulk with one rclone command as well
+    # Delete directories
+    for dir_path in dirs:
+        subprocess.run(
+            ["rclone", "purge", f"gdrive:{dir_path}", "--drive-use-trash=false"])
+
+
+def get_pwd() -> str:
+    return os.environ.get("pwd", "")
+
+
+def get_parent_pwd(pwd: str) -> str:
+    """Given the pwd (e.g. `a/b/c`), return the parent pwd (e.g. `a/b`)"""
+    # Split on rightmost '/', and keep everything left of it.
+    return pwd.rpartition('/')[0]
+
+
+def get_total_size() -> str:
+    return os.environ.get("total_size", "unknown")
 
 
 def enter_dir():
-    pwd = os.environ.get("pwd")
-    if (line := get_selected_line()) is not None:
-        split = line.split(",")
-        is_dir = split[2]
+    """Set $pwd to $pwd/selected_dir."""
+    pwd = get_pwd()
+    if (node := get_selected_node()) is not None:
+        dir_name, _, is_dir = node
         if is_dir:
-            dir = split[0]
-            return os.path.join(pwd, dir)
-    
-    return pwd
+            pwd = path_join(pwd, dir_name)
+    print(pwd, end="")
+
+
+def exit_dir():
+    """Set $pwd to its parent dir."""
+    print(get_parent_pwd(get_pwd()), end="")
+
+
+def total_size():
+    """Set $total_size to the total size of all documents in gdrive."""
+    pwd = get_pwd()
+    json_output = subprocess.run(
+        ["rclone", "size", f"gdrive:{pwd}", "--json"], capture_output=True, text=True).stdout
+    try:
+        size = json.loads(json_output)
+    except Exception:
+        print(
+            f"Error: parsing rclone's output into JSON failed.\noutput:\n{json_output}", file=sys.stderr)
+        exit(1)
+
+    print(numfmt(size["bytes"]), end="")
 
 
 # TODO: also show the recursive size of each directory (currently it's -1)
-def list_cur_dir():
-    """Lists (only/non-recursively) all files and subdirectories in the the current directory."""
-    pwd = os.environ.get("pwd", "")
-    json_output = subprocess.run(["rclone", "lsjson", f"gdrive:{pwd}"], capture_output=True, text=True).stdout
+def list_nodes_in_pwd(pwd: str) -> str:
+    """Lists (only/non-recursively) all notes (files and subdirectories) in the the current directory."""
+
+    json_output = subprocess.run(
+        ["rclone", "lsjson", f"gdrive:{pwd}"], capture_output=True, text=True).stdout
     try:
-        files = json.loads(json_output)
+        nodes = json.loads(json_output)
     except Exception:
-        print(f"""
-        Error: parsing the output into JSON failed.
-        output:
-        {json}
-        """, file=sys.stderr)
+        print(
+            f"Error: parsing rclone's output into JSON failed.\noutput:\n{json_output}", file=sys.stderr)
         exit(1)
 
-    print_str = "NAME,SIZE,IS_DIRECTORY\n"
-
-    # TODO: do shorter with list comprehension
-    # Includes both files and directories
-    for file in files:
-        name = file["Name"]
-        size = file["Size"]
-        is_dir = file["IsDir"]
-
-        print_str += f"{name},{size},{is_dir}\n"
-
-    print(print_str, end="")
+    list = [
+        f'{node["Name"]},{numfmt(node["Size"], 6)},{node["IsDir"]}' for node in nodes]
+    return "\n".join(list)
 
 
-# TODO: temporary until new watchbind version is released
-if (home := os.environ.get("HOME")) is not None:
-    watchbind_binary = os.path.join(home, "code/watchbind/target/release/watchbind")
+def print_ui():
+    pwd = get_pwd()
+
+    pwd_ = f"pwd: /{pwd}"
+    total_size = f"size: {get_total_size()}"
+    header = "NAME,SIZE,IS_DIRECTORY"
+    list = list_nodes_in_pwd(pwd)
+
+    print("\n".join([pwd_, total_size, header, list]))
+
+
+# # TODO: temporary until new watchbind version is released
+# if (home := os.environ.get("HOME")) is not None:
+#     watchbind_binary = os.path.join(
+#         home, "code/watchbind/target/release/watchbind")
+
 
 def main():
-    # TODO: find more clean/modern/functional solution
+    # TODO: find more clean/modern/functional solution for args parsing
     match len(sys.argv):
         case 1:
             if (xdg_config_home := os.environ.get("XDG_CONFIG_HOME")) is not None:
-                subprocess.run([watchbind_binary, "--config-file", f"{xdg_config_home}/watchbind/gdrive.toml"])
+                subprocess.run(["watchbind", "--config-file",
+                                f"{xdg_config_home}/watchbind/gdrive.toml"])
         case 2:
             sub_command = sys.argv[1]
             match sub_command:
-                case "list":
-                    list_cur_dir()
+                case "print-ui":
+                    print_ui()
                 case "delete":
-                    delete_files()
+                    delete_nodes()
                 case "upload":
-                    upload_file_or_dir()
+                    upload_node()
                 case "download":
-                    download_file_or_dir()
+                    download_node()
                 case "enter-dir":
                     enter_dir()
                 case "exit-dir":
                     exit_dir()
+                case "total-size":
+                    total_size()
                 case _:
-                    print("Error: unknown command: {sub_command}", file=sys.stderr)
+                    print(
+                        "Error: unknown command: {sub_command}", file=sys.stderr)
                     exit(1)
 
 
