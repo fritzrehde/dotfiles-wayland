@@ -7,14 +7,15 @@ initial-env = [
 interval = 1.0
 header-lines = 3
 field-separator = ","
+fields = "1,2"
 
 [keybindings]
 "J" = [ "cursor down 10" ]
 "K" = [ "cursor up 10" ]
 "x" = [ "exec -- gdrive.py delete", "reload", "unselect-all" ]
+"p" = [ "exec & -- gdrive.py upload" ]
 
 # "l" = [ "gdrive.py download &" ]
-# "p" = [ "gdrive.py upload &" ]
 # "u" = [ "gdrive.py space-used &" ]
 
 # Traverse into a directory

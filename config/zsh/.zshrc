@@ -7,10 +7,8 @@ alias update='notify.sh "sudo pacman -Syu --noconfirm"'
 alias update-yay='notify.sh "yay -Syu"'
 alias yy="fc -ln -1 | tr -d '\n' | clipboard.sh copy"
 alias open="xdg-open"
-alias jo="joshuto"
 
 ## git
-# alias gc='git clone "$1" && cd $(basename "$1" | sed -e "s/.git//g")'
 alias gd='git diff | diff-so-fancy'
 
 ## shell scripts

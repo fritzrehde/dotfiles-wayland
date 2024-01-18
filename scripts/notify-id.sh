@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# provides unique notification ids for scripts to lock/unlock
+# Provides unique notification ids for scripts to lock/unlock.
 
 TMP=/tmp/notify-id
 
@@ -12,7 +12,7 @@ case "$1" in
 		while ! mkdir "$TMP/$i" > /dev/null 2>&1; do
 			i=$((i+1))
 		done
-		echo "$i"
+		printf "$i"
 		;;
 	unlock)
 		rmdir "$TMP/$2"

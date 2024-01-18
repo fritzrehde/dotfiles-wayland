@@ -1,6 +1,8 @@
 #!/bin/sh
 
-# download video and display download progress bar using notifications
+# Download video via `yt-dlp` and display download progress bar using notifications.
+
+# TODO: rewrite in python
 
 ID="$(notify-id.sh lock)"
 # custom title from parent shell

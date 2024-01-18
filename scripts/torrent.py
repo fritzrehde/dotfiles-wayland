@@ -19,7 +19,8 @@ def get_torrent_ids() -> Optional[str]:
 def transmission_exec_on_all(command):
     """Execute a transmission command on all selected watchbind lines."""
     if (torrent_ids := get_torrent_ids()) is not None:
-        subprocess.run(["transmission-remote", "--torrent", torrent_ids, command])
+        subprocess.run(
+            ["transmission-remote", "--torrent", torrent_ids, command])
 
 
 def get_clipboard_content():
@@ -48,7 +49,8 @@ def add_torrent():
 
 def list_torrents():
     print_str = "ID,STATUS,BAR,PERC,DOWN,UP,NAME\n"
-    output = subprocess.run(["transmission-remote", "--json", "--list"], capture_output=True, text=True).stdout
+    output = subprocess.run(
+        ["transmission-remote", "--json", "--list"], capture_output=True, text=True).stdout
     try:
         torrents = json.loads(output)["arguments"]["torrents"]
     except Exception:
@@ -73,7 +75,9 @@ def list_torrents():
         # transformed data
         status = status_str(status_code)
         percentage = floor(((size_total - size_left) * 100) / size_total)
-        progress_bar = subprocess.run(['asciibar', '--min=0', '--max=100', '--length=10', '--border="|"', f'{percentage}'])
+        progress_bar = subprocess.run(
+            ['asciibar', '--min=0', '--max=100', '--length=10', '--border="|"', f'{percentage}'])
+        # TODO: use numfmt
         download = f'{(download / 1000000):.1f} MB/s'
         upload = f'{(upload / 1000000):.1f} KB/s'
 
@@ -94,7 +98,8 @@ def main():
     match len(sys.argv):
         case 1:
             if (xdg_config_home := os.environ.get("XDG_CONFIG_HOME")) is not None:
-                subprocess.run(["watchbind", "--config-file", f"{xdg_config_home}/watchbind/torrent.toml"])
+                subprocess.run(["watchbind", "--config-file",
+                               f"{xdg_config_home}/watchbind/torrent.toml"])
         case 2:
             sub_command = sys.argv[1]
             match sub_command:
@@ -113,7 +118,8 @@ def main():
                 case "delete":
                     transmission_exec_on_all("--remove-and-delete")
                 case _:
-                    print("Error: unknown command: {sub_command}", file=sys.stderr)
+                    print(
+                        "Error: unknown command: {sub_command}", file=sys.stderr)
                     exit(1)
 
 

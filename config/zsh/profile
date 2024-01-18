@@ -29,3 +29,6 @@ source ~/.config/fzf/config.sh
 
 ## ssh
 eval $(keychain --eval id_rsa)
+
+## gdrive.py
+export GDRIVE_UPLOADABLE_FILE_EXTENSIONS="-e mp4 -e mkv -e webm"

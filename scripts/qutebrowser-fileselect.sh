@@ -1,6 +1,6 @@
 #!/bin/sh
 
-[ "$#" -eq 2 ] || exit 1
+[ "$#" -ne 2 ] && exit 1
 
 case "$1" in
 	directory)
@@ -20,6 +20,6 @@ esac
 # CMD="fd --no-ignore --type $TYPE --absolute-path | fzf.sh -d "/" --with-nth 4.. $FZF_ARGS > $2"
 CMD="fd --no-ignore --type $TYPE --absolute-path | fzf.sh $FZF_ARGS > $2"
 
-# TODO: add floating back
+# TODO: add floating back with --class floating_tall
 # kitty --class floating_tall sh -c "$CMD"
-alacritty -e sh -c "$CMD"
+alacritty --command sh -c "$CMD"

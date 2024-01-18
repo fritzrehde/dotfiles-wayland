@@ -61,10 +61,10 @@
 # esac
 
 
-# TODO: cool extra features to support:
+# TODO: extra features to support:
 # - sort by different things: alphabetical, file-size
-# - mkdir command, get node's name from text input
-# - display file-size nicely, not in fixed unit, but in nicest to display in specified number of digits (e.g. 4)
+# - mkdir command, get node's name from text input (maybe use rofi until text input watchbind feature is implemented)
+# - display uploads in UI as well, and make them cancellable with keybinding
 
 import subprocess
 import sys
@@ -72,8 +72,51 @@ import json
 import os
 from typing import List, Tuple, Optional
 
+# Binary dependencies: watchbind, rclone, numfmt
+
+# === System-specific config values and functions (override these with your own)
+
+# Larger -> higher performance, higher memory usage.
+DRIVE_CHUNK_SIZE = "1024M"
+
+# Only show files with these file extensions when selecting files.
+UPLOADABLE_FILE_EXTENSIONS = os.environ.get(
+    "GDRIVE_UPLOADABLE_FILE_EXTENSIONS")
+
+
+def select_files() -> List[str]:
+    """Interactively select files from the file system."""
+    result = subprocess.run(["fileselect.sh", "files-dirs", *([UPLOADABLE_FILE_EXTENSIONS] if UPLOADABLE_FILE_EXTENSIONS else [])],
+                            capture_output=True, text=True)
+    return result.stdout.splitlines()
+
+# ===
+
+
+def get_selected_line():
+    return os.environ.get("line")
+
+
+def get_selected_lines():
+    return os.environ.get("lines", "").splitlines()
+
+
+def get_pwd() -> str:
+    return os.environ.get("pwd", "")
+
+
+def get_parent_pwd(pwd: str) -> str:
+    """Given the pwd (e.g. `a/b/c`), return the parent pwd (e.g. `a/b`)"""
+    # Split on rightmost '/', and keep everything left of it.
+    return pwd.rpartition('/')[0]
+
+
+def get_total_size() -> str:
+    return os.environ.get("total_size", "unknown")
+
 
 def numfmt(bytes: int, padding: int = None) -> str:
+    """Return a size in bytes in human-readable form."""
     if bytes < 0:
         return ""
 
@@ -84,14 +127,6 @@ def numfmt(bytes: int, padding: int = None) -> str:
     ]
     result = subprocess.run(numfmt_cmd, capture_output=True, text=True)
     return result.stdout.rstrip()
-
-
-def get_selected_line():
-    return os.environ.get("line")
-
-
-def get_selected_lines():
-    return os.environ.get("lines", "").split("\n")
 
 
 def parse_node(line: str) -> Tuple[str, int, bool]:
@@ -121,7 +156,7 @@ def path_join(path_a, path_b):
 
 
 def delete_nodes():
-    """"Delete all selected nodes (files and/or directories)."""
+    """Delete all selected nodes (files and/or directories)."""
     pwd = get_pwd()
 
     files, dirs = [], []
@@ -140,18 +175,65 @@ def delete_nodes():
             ["rclone", "purge", f"gdrive:{dir_path}", "--drive-use-trash=false"])
 
 
-def get_pwd() -> str:
-    return os.environ.get("pwd", "")
+def send_progress_notification(title, percentage, size, speed, id):
+    notify_send_cmd = ["notify-send", f"Upload {percentage}% at {numfmt(speed)}/s of {numfmt(size)}",
+                       title, f"--replace-id={id}", f"--hint=int:value:{percentage}", "--expire-time=0"]
+    subprocess.run(notify_send_cmd)
 
 
-def get_parent_pwd(pwd: str) -> str:
-    """Given the pwd (e.g. `a/b/c`), return the parent pwd (e.g. `a/b`)"""
-    # Split on rightmost '/', and keep everything left of it.
-    return pwd.rpartition('/')[0]
+def request_notification_id() -> str:
+    return subprocess.run(["notify-id.sh", "lock"], text=True, capture_output=True).stdout.strip()
 
 
-def get_total_size() -> str:
-    return os.environ.get("total_size", "unknown")
+def drop_notification_ids(ids: dict):
+    for id in ids.values():
+        subprocess.run(["notify-id.sh", "unlock", id])
+
+
+# TODO: turn into method on hashmap directly
+def get_or_insert(hashmap: dict, key, eval_other):
+    """Return `hashmap[key]`, and set value to `eval_other()` if it does not yet exist."""
+    if key not in hashmap:
+        hashmap[key] = eval_other()
+    return hashmap[key]
+
+
+def parse_transfer_stats(log_line: str, notification_ids: dict):
+    log = json.loads(log_line)
+
+    def parse_transfer_stat(stat):
+        title = stat["name"]
+        percentage = stat["percentage"]
+        size = stat["size"]
+        # Current speed, not average ("speedAvg" name is very misleading)
+        speed = stat["speedAvg"]
+        id = get_or_insert(notification_ids, title, request_notification_id)
+        return title, percentage, size, speed, id
+
+    try:
+        return [parse_transfer_stat(stat) for stat in log["stats"]["transferring"]]
+    except KeyError:
+        return []
+
+
+def upload_nodes():
+    """Upload nodes (files and/or directories) that are selected via external script."""
+    pwd = get_pwd()
+
+    for node_to_be_uploaded in select_files():
+        notification_ids = {}
+        rclone_upload_cmd = ["rclone", "copy", node_to_be_uploaded,
+                             f"gdrive:{pwd}", f"--drive-chunk-size={DRIVE_CHUNK_SIZE}",
+                             "--log-level=INFO", "--use-json-log", "--stats=1s"]
+        try:
+            with subprocess.Popen(rclone_upload_cmd, stderr=subprocess.PIPE, text=True, bufsize=1, universal_newlines=True) as proc:
+                for log_line in proc.stderr:
+                    print(log_line)
+                    for title, percentage, size, speed, id in parse_transfer_stats(log_line, notification_ids):
+                        send_progress_notification(
+                            title, percentage, size, speed, id)
+        finally:
+            drop_notification_ids(notification_ids)
 
 
 def enter_dir():
@@ -174,29 +256,15 @@ def total_size():
     pwd = get_pwd()
     json_output = subprocess.run(
         ["rclone", "size", f"gdrive:{pwd}", "--json"], capture_output=True, text=True).stdout
-    try:
-        size = json.loads(json_output)
-    except Exception:
-        print(
-            f"Error: parsing rclone's output into JSON failed.\noutput:\n{json_output}", file=sys.stderr)
-        exit(1)
-
+    size = json.loads(json_output)
     print(numfmt(size["bytes"]), end="")
 
 
-# TODO: also show the recursive size of each directory (currently it's -1)
 def list_nodes_in_pwd(pwd: str) -> str:
     """Lists (only/non-recursively) all notes (files and subdirectories) in the the current directory."""
-
     json_output = subprocess.run(
         ["rclone", "lsjson", f"gdrive:{pwd}"], capture_output=True, text=True).stdout
-    try:
-        nodes = json.loads(json_output)
-    except Exception:
-        print(
-            f"Error: parsing rclone's output into JSON failed.\noutput:\n{json_output}", file=sys.stderr)
-        exit(1)
-
+    nodes = json.loads(json_output)
     list = [
         f'{node["Name"]},{numfmt(node["Size"], 6)},{node["IsDir"]}' for node in nodes]
     return "\n".join(list)
@@ -207,7 +275,7 @@ def print_ui():
 
     pwd_ = f"pwd: /{pwd}"
     total_size = f"size: {get_total_size()}"
-    header = "NAME,SIZE,IS_DIRECTORY"
+    header = "NAME,SIZE"
     list = list_nodes_in_pwd(pwd)
 
     print("\n".join([pwd_, total_size, header, list]))
@@ -234,9 +302,9 @@ def main():
                 case "delete":
                     delete_nodes()
                 case "upload":
-                    upload_node()
+                    upload_nodes()
                 case "download":
-                    download_node()
+                    download_nodes()
                 case "enter-dir":
                     enter_dir()
                 case "exit-dir":
