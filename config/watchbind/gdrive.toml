@@ -1,4 +1,4 @@
-watched-command = "gdrive.py print-ui"
+watched-command = "gdrive.py print_ui"
 initial-env = [
   # TODO: watchbind should somehow handle these being unset at startup by itself
   'set-env pwd -- printf ""',
@@ -12,17 +12,17 @@ fields = "1,2"
 [keybindings]
 "J" = [ "cursor down 10" ]
 "K" = [ "cursor up 10" ]
-"x" = [ "exec -- gdrive.py delete", "reload", "unselect-all" ]
-"p" = [ "exec & -- gdrive.py upload" ]
+"x" = [ "exec -- gdrive.py delete_nodes", "reload", "unselect-all" ]
+"p" = [ "exec & -- gdrive.py upload_nodes" ]
 
 # "l" = [ "gdrive.py download &" ]
 # "u" = [ "gdrive.py space-used &" ]
 
 # Traverse into a directory
-"l" = [ "set-env pwd -- gdrive.py enter-dir", "reload" ]
+"l" = [ "set-env pwd -- gdrive.py enter_dir", "reload" ]
 
 # Traverse out of a directory
-"h" = [ "set-env pwd -- gdrive.py exit-dir", "reload" ]
+"h" = [ "set-env pwd -- gdrive.py exit_dir", "reload" ]
 
 # Update $total_size (since it takes too long to execute periodically)
-"s" = [ "set-env total_size -- gdrive.py total-size", "reload" ]
+"s" = [ "set-env total_size -- gdrive.py total_size", "reload" ]

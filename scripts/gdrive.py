@@ -1,73 +1,12 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
-# file_ids() {
-# 	echo "$LINES" | awk '{ print $1 }' FS="   "
-# }
-
-# upload() {
-# 	FILE="$1"
-# 	ID="$(notify-id.sh lock)"
-# 	TITLE="$(basename "$FILE")"
-# 	IFS=',' # for read while loop
-# 	stdbuf -oL gdrive upload -r "$FILE" 2>&1 \
-# 		| stdbuf -i0 -oL tr '\r' '\n' \
-# 		| grep --line-buffered -e "[^[:blank:]].*Rate:" \
-# 		| stdbuf -i0 -oL sed -e 's/ //g' -e 's/\//,/' -e 's/,Rate:/,/' -e 's/B//g' -e 's/\/s//' \
-# 		| stdbuf -i0 -oL numfmt -d "," --field=- --from=auto \
-# 		| stdbuf -i0 -oL awk '{ printf "%02d,%.1f MB/s,%d MB\n", $1*100/$2, $3/1000000, $2/1000000 }' FS="," \
-# 		| while read PERC SPEED SIZE; do
-# 		notify-send "Upload ${PERC}% at ${SPEED} of ${SIZE}" "$TITLE" -r "$ID" -h "int:value:${PERC}" -t 0
-# 	done
-# 	notify-id.sh unlock "$ID"
-# }
-
-# case "$1" in
-# 	list)
-# 		gdrive list --no-header --name-width 0 --order name --max 500 \
-# 			| grep bin \
-# 			| sed 's/   */,/g' \
-# 			| cut -f 1,2,4 -d "," --output-delimiter "," \
-# 			| column -t -s "," -o "   "
-# 		;;
-# 	delete)
-# 		# file_ids | parallel 'gdrive3 files delete "{}"'
-# 		file_ids | parallel 'gdrive delete "{}"'
-# 		;;
-# 	download)
-# 		# TODO: do in parallel or all at once!
-# 		file_ids | xargs -I {} gdrive download "{}"
-# 		;;
-# 	upload)
-# 		fileselect.sh "-e mp4 -e mkv -e webm" | while read FILE; do
-# 			upload "$FILE" &
-# 		done
-# 		;;
-# 	space-used)
-# 		BYTES_SUM=$(
-# 			gdrive list --no-header --name-width 0 --order name --max 500 --bytes \
-# 				| grep bin \
-# 				| sed 's/   */,/g' \
-# 				| cut -d "," -f 4 --output-delimiter "," \
-# 				| tr -dc '0-9,\n' \
-# 				| tr '\n' '+'
-# 		)
-# 		# "...+0"
-# 		SPACE_USED="$(echo "${BYTES_SUM}0" | bc | numfmt --to=si --format="%.2f")"
-# 		notify-send "gdrive: space used" "$SPACE_USED"
-# 		;;
-# 	*)
-# 		watchbind --config-file ~/dotfiles/config/watchbind/gdrive.toml
-# 		;;
-# esac
-
-
-# TODO: extra features to support:
+# TODO: extra features to implement:
 # - sort by different things: alphabetical, file-size
 # - mkdir command, get node's name from text input (maybe use rofi until text input watchbind feature is implemented)
 # - display uploads in UI as well, and make them cancellable with keybinding
 
+from argparse import ArgumentParser
 import subprocess
-import sys
 import json
 import os
 from typing import List, Tuple, Optional
@@ -91,6 +30,19 @@ def select_files() -> List[str]:
     return result.stdout.splitlines()
 
 # ===
+
+
+cli = ArgumentParser()
+subparsers = cli.add_subparsers(dest="subcommand")
+
+
+def subcommand():
+    """Turn a function into a cli subcommand (with no args)."""
+    def decorator(func):
+        parser = subparsers.add_parser(
+            func.__name__, description=func.__doc__, help=func.__doc__)
+        parser.set_defaults(func=func)
+    return decorator
 
 
 def get_selected_line():
@@ -155,6 +107,7 @@ def path_join(path_a, path_b):
     return os.path.join(path_a, path_b)
 
 
+@subcommand()
 def delete_nodes():
     """Delete all selected nodes (files and/or directories)."""
     pwd = get_pwd()
@@ -216,6 +169,7 @@ def parse_transfer_stats(log_line: str, notification_ids: dict):
         return []
 
 
+@subcommand()
 def upload_nodes():
     """Upload nodes (files and/or directories) that are selected via external script."""
     pwd = get_pwd()
@@ -236,6 +190,7 @@ def upload_nodes():
             drop_notification_ids(notification_ids)
 
 
+@subcommand()
 def enter_dir():
     """Set $pwd to $pwd/selected_dir."""
     pwd = get_pwd()
@@ -246,13 +201,15 @@ def enter_dir():
     print(pwd, end="")
 
 
+@subcommand()
 def exit_dir():
     """Set $pwd to its parent dir."""
     print(get_parent_pwd(get_pwd()), end="")
 
 
+@subcommand()
 def total_size():
-    """Set $total_size to the total size of all documents in gdrive."""
+    """Set $total_size to the total size of all documents that are recursively in the current directory."""
     pwd = get_pwd()
     json_output = subprocess.run(
         ["rclone", "size", f"gdrive:{pwd}", "--json"], capture_output=True, text=True).stdout
@@ -270,7 +227,9 @@ def list_nodes_in_pwd(pwd: str) -> str:
     return "\n".join(list)
 
 
+@subcommand()
 def print_ui():
+    """Print the textual UI containing info lines (pwd, size), the column names and the nodes (files and directories)."""
     pwd = get_pwd()
 
     pwd_ = f"pwd: /{pwd}"
@@ -288,33 +247,17 @@ def print_ui():
 
 
 def main():
-    # TODO: find more clean/modern/functional solution for args parsing
-    match len(sys.argv):
-        case 1:
-            if (xdg_config_home := os.environ.get("XDG_CONFIG_HOME")) is not None:
-                subprocess.run(["watchbind", "--config-file",
-                                f"{xdg_config_home}/watchbind/gdrive.toml"])
-        case 2:
-            sub_command = sys.argv[1]
-            match sub_command:
-                case "print-ui":
-                    print_ui()
-                case "delete":
-                    delete_nodes()
-                case "upload":
-                    upload_nodes()
-                case "download":
-                    download_nodes()
-                case "enter-dir":
-                    enter_dir()
-                case "exit-dir":
-                    exit_dir()
-                case "total-size":
-                    total_size()
-                case _:
-                    print(
-                        "Error: unknown command: {sub_command}", file=sys.stderr)
-                    exit(1)
+    args = cli.parse_args()
+
+    if args.subcommand:
+        # Execute subcommand:
+        args.func()
+    else:
+        # Launch `watchbind` when no subcommand is provided.
+        # TODO: make customizable so others can easily use this script as well
+        if (xdg_config_home := os.environ.get("XDG_CONFIG_HOME")) is not None:
+            subprocess.run(["watchbind", "--config-file",
+                            f"{xdg_config_home}/watchbind/gdrive.toml"])
 
 
 if __name__ == "__main__":
