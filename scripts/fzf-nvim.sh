@@ -4,7 +4,7 @@ FZF_OPTS=(--preview="cat {}")
 case "$1" in
 	config)
 		SEARCH_PATH=~/git/dotfiles-wayland/config
-		FILES=$(fd -t f . $SEARCH_PATH | sed 's/\/home\/fritz\/git\/dotfiles\/config\///')
+		FILES=$(fd --hidden -t f . $SEARCH_PATH | sed 's/\/home\/fritz\/git\/dotfiles\/config\///')
 		;;
 	scripts)
 		SEARCH_PATH=~/git/dotfiles-wayland/scripts

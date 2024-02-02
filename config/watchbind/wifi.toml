@@ -1,6 +1,7 @@
 watched-command = "wifi.sh list"
 interval = 1.0
 field-separator = ":"
+header-lines = 1
 
 [keybindings]
 "l" = [ "exec -- wifi.sh connect", "reload" ]

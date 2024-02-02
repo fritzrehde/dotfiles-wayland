@@ -13,7 +13,7 @@ case "$1" in
 		pdftk "$file" cat "$range" output new.pdf
 		;;
 	*)
-		echo "Usage: $(basename $0) [toggle|pages <range>]"
+		echo "Usage: $(basename $0) [merge|pages <range>]"
 		exit 1
 		;;
 esac

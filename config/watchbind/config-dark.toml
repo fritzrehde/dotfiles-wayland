@@ -8,3 +8,7 @@ header-boldness = "non-bold"
 
 # selected lines
 selected-bg = "magenta"
+
+[keybindings]
+"J" = [ "cursor down 10" ]
+"K" = [ "cursor up 10" ]

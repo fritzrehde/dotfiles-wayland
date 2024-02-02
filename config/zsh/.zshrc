@@ -70,3 +70,15 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}' # case sensitivity
 
 # opam configuration
 [[ ! -r /home/fritz/.opam/opam-init/init.zsh ]] || source /home/fritz/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+
+# Tools ------------------------------------------------------------------------
+# yazi: change directory when exiting yazi
+function ya() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXX")"
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
+#-------------------------------------------------------------------------------

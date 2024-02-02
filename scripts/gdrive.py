@@ -174,10 +174,12 @@ def upload_nodes():
     """Upload nodes (files and/or directories) that are selected via external script."""
     pwd = get_pwd()
 
-    for node_to_be_uploaded in select_files():
+    for node_path in select_files():
         notification_ids = {}
-        rclone_upload_cmd = ["rclone", "copy", node_to_be_uploaded,
-                             f"gdrive:{pwd}", f"--drive-chunk-size={DRIVE_CHUNK_SIZE}",
+        gdrive_path = path_join(pwd, os.path.basename(
+            os.path.dirname(node_path))) if os.path.isdir(node_path) else pwd
+        rclone_upload_cmd = ["rclone", "copy", node_path,
+                             f"gdrive:{gdrive_path}", f"--drive-chunk-size={DRIVE_CHUNK_SIZE}",
                              "--log-level=INFO", "--use-json-log", "--stats=1s"]
         try:
             with subprocess.Popen(rclone_upload_cmd, stderr=subprocess.PIPE, text=True, bufsize=1, universal_newlines=True) as proc:
@@ -234,10 +236,11 @@ def print_ui():
 
     pwd_ = f"pwd: /{pwd}"
     total_size = f"size: {get_total_size()}"
-    header = "NAME,SIZE"
+    # TODO: if none of the items are displaying a size (e.g. all directories), then don't display SIZE column name
+    column_names = "NAME,SIZE"
     list = list_nodes_in_pwd(pwd)
 
-    print("\n".join([pwd_, total_size, header, list]))
+    print("\n".join([pwd_, total_size, column_names, list]))
 
 
 # # TODO: temporary until new watchbind version is released

@@ -313,7 +313,7 @@ bar {
 
 set $tmp_ws t
 
-# == Open specific applications in next empty workspace
+# === Open specific applications in next empty workspace
 
 # current hacky solution: open app in "$tmp_ws" workspace first, and then move to next empty
 # ideal solution (invalid as "$()" not evaluated): for_window [app_id="mpv"] move container to workspace $($scripts/sway-next-empty-workspace.sh)
@@ -327,19 +327,22 @@ assign     [app_id="zathura"] workspace $tmp_ws
 for_window [app_id="zathura"] exec 'swaymsg [workspace=$tmp_ws] move container to workspace $($scripts/next-empty-workspace.sh)'
 
 
-# === Start external apps
+# === Execute external apps on reload
 
-# output management
-exec_always pkill kanshi; exec kanshi
+# Adjust display's color temperature
+exec_always 'pkill gammastep; gammastep'
+
+# Display output management
+# exec_always pkill kanshi; exec kanshi
+exec_always 'pkill kanshi; kanshi'
+
+# === Execute external apps once at sway startup
 
 # clipboard
 exec 'wl-paste --watch cliphist store'
 
 # notifications
 exec 'dunst'
-
-# adjust color temperature
-exec 'gammastep'
 
 # transmission
 exec 'transmission-daemon'

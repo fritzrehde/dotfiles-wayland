@@ -20,7 +20,8 @@ case "$1" in
 
 		# Format: YYYYMMDD_HHhMMmSSs
 		timestamp=$(date +"%Y%m%d_%Hh%Mm%Ss")
-		file_name="screenrecording_${timestamp}.mkv"
+		# TODO: change to .mkv (only .mp4 because github does not support .mkv)
+		file_name="screenrecording_${timestamp}.mp4"
 		file="$SCREENRECORDINGS_DIR/$file_name"
 
 		# TODO: maybe copy path of recording to clipboard for quick retrieval
