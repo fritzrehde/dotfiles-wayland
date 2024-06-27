@@ -52,6 +52,10 @@ case "$1" in
 			notify-send "Failed to disconnect from \"$SSID\""
 		fi
 		;;
+	desktop)
+		# Open as "desktop" app (i.e. in new terminal)
+		$TERMINAL -e "$0"
+		;;
 	*)
 		watchbind -c $XDG_CONFIG_HOME/watchbind/wifi.toml
 		;;

@@ -9,6 +9,8 @@ header-boldness = "non-bold"
 # selected lines
 selected-bg = "magenta"
 
+# keybindings-help-menu-format = [ "key", "description" ]
+
 [keybindings]
-"J" = [ "cursor down 10" ]
-"K" = [ "cursor up 10" ]
+# "J" = { description = "Move cursor down 10 lines", operations = "cursor down 10" }
+# "K" = { description = "Move cursor up 10 lines", operations = "cursor up 10" }

@@ -4,6 +4,6 @@ field-separator = ":"
 header-lines = 1
 
 [keybindings]
-"l" = [ "exec -- wifi.sh connect", "reload" ]
-"enter" = [ "exec -- wifi.sh connect", "reload" ]
+"l" = [ "exec -- wifi.sh connect", "exit" ]
+"enter" = [ "exec -- wifi.sh connect", "exit" ]
 "h" = [ "exec -- wifi.sh disconnect", "reload" ]

@@ -52,7 +52,7 @@
         "format-linked": "󰈀 {ifname} (No IP)",
         "format-disconnected": "󰖩 Disconnected",
         "format-alt": "{ifname}: {ipaddr}/{cidr}",
-				"on-click-right": "$TERMINAL -e wifi.sh",
+				"on-click-right": "wifi.sh desktop",
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float

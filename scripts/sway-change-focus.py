@@ -41,10 +41,11 @@ def focus_next_output():
 
 
 def main():
-    if multiple_windows_in_focused_workspace():
-        focus_next_window()
-    else:
-        focus_next_output()
+    # if multiple_windows_in_focused_workspace():
+    #     focus_next_window()
+    # else:
+    #     focus_next_output()
+    focus_next_output()
 
 
 if __name__ == "__main__":

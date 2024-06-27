@@ -21,6 +21,8 @@ SCRIPTS=$(
 	sway-cursor.sh hide
 	sway-move-workspaces-to-output.py
 	screenrecording.sh toggle
+	wifi.sh desktop
+	unsw-desk-reservation.py
 	END
 )
 

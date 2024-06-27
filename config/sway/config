@@ -316,15 +316,15 @@ set $tmp_ws t
 # === Open specific applications in next empty workspace
 
 # current hacky solution: open app in "$tmp_ws" workspace first, and then move to next empty
-# ideal solution (invalid as "$()" not evaluated): for_window [app_id="mpv"] move container to workspace $($scripts/sway-next-empty-workspace.sh)
+# ideal solution (invalid as "$()" not evaluated): for_window [app_id="mpv"] move container to workspace $($scripts/sway-next-empty-workspace.py)
 
 # mpv
 assign     [app_id="mpv"] workspace $tmp_ws
-for_window [app_id="mpv"] exec 'swaymsg [workspace=$tmp_ws] move container to workspace $($scripts/next-empty-workspace.sh)'
+for_window [app_id="mpv"] exec 'swaymsg [workspace=$tmp_ws] move container to workspace $($scripts/next-empty-workspace.py)'
 
 # zathura
 assign     [app_id="zathura"] workspace $tmp_ws
-for_window [app_id="zathura"] exec 'swaymsg [workspace=$tmp_ws] move container to workspace $($scripts/next-empty-workspace.sh)'
+for_window [app_id="zathura"] exec 'swaymsg [workspace=$tmp_ws] move container to workspace $($scripts/next-empty-workspace.py)'
 
 
 # === Execute external apps on reload
