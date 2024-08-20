@@ -4,7 +4,7 @@ profile Laptop {
 
 
 profile PortableMonitor {
-  output "DO NOT USE - RTK ZZX-FHD-HDR demoset-1" mode 1920x1080@60Hz scale 1.2 position 0,0
+  output "Invalid Vendor Codename - RTK ZZX-FHD-HDR demoset-1" mode 1920x1080@60Hz scale 1.2 position 0,0
   output eDP-1 mode 1920x1080@60Hz scale 1.2 position 1600,0
 }
 

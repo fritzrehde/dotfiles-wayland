@@ -6,7 +6,8 @@
         "editor.formatOnSave": true
     },
     "[python]": {
-        "editor.formatOnSave": true
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "ms-python.black-formatter"
     },
     "[shellscript]": {
         "editor.formatOnSave": true
@@ -60,5 +61,13 @@
     "redhat.telemetry.enabled": false,
     "explorer.confirmDelete": false,
     "workbench.startupEditor": "none",
+    "editor.rulers": [
+      80
+    ],
+    "shellformat.flag": "--case-indent --indent 4",
+    "black-formatter.args": [
+      "--line-length",
+      "80"
+    ],
 
 }
