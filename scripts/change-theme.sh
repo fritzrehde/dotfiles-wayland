@@ -51,6 +51,8 @@ done
 # sway
 swaymsg reload
 
+# GTK-3.0 (because Sway interferes somehow)
+import-gsettings.sh
 
 # qutebrowser
 if pgrep qutebrowser > /dev/null; then

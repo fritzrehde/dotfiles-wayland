@@ -29,6 +29,6 @@ case "$FILENAME" in
 		printf "#!/bin/sh\n" > "$FILE"
 		;;
 	*.py)
-		printf "#!/usr/bin/env python\n" > "$FILE"
+		printf "#!/usr/bin/env python3\n" > "$FILE"
 		;;
 esac

@@ -74,8 +74,11 @@ output * bg ~/.config/wallpaper/wallpaper.jpg fill
 #     before-sleep "waylock -fork-on-lock -init-color 0x000000 -input-color 0x000000"
 
 # TODO: fix auto sleep once amphetamine works
+# 1. Before sleep, start the screen locker.
+# 2. After resuming from sleep, power on all displays (even if some were powered off before sleeping).
 exec swayidle -w \
-    before-sleep 'swaylock -f'
+    before-sleep 'swaylock -f' \
+    after-resume 'sway-display-power.py on all'
 
 
 # === Input configuration
@@ -278,7 +281,7 @@ bindsym $mod_super+Shift+4 exec 'screenshot.sh select'
 # bindsym XF86AudioNext  exec 'playerctl next'
 
 # turn on/off laptop display
-bindsym XF86Favorites exec 'swaymsg output $laptop_display power toggle'
+bindsym XF86Favorites exec 'sway-display-power.py toggle "$laptop_display"'
 
 
 # == External Apps
@@ -329,12 +332,14 @@ for_window [app_id="zathura"] exec 'swaymsg [workspace=$tmp_ws] move container t
 
 # === Execute external apps on reload
 
-# Adjust display's color temperature
-exec_always 'pkill gammastep; gammastep'
+# Adjust display's color temperature.
+exec_always 'night-shift.sh on'
 
-# Display output management
-# exec_always pkill kanshi; exec kanshi
+# Display output management.
 exec_always 'pkill kanshi; kanshi'
+
+# Turn all displays on.
+exec_always 'sway-display-power.sh on all'
 
 # === Execute external apps once at sway startup
 

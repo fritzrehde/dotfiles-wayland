@@ -9,6 +9,12 @@ profile PortableMonitor {
 }
 
 
+profile Projector {
+  output "Seiko Epson Corporation EPSON PJ 0x01010101" mode 1920x1080 position 0,0
+  output eDP-1 mode 1920x1080@60Hz scale 1.2 position 160,1080
+}
+
+
 profile HomeDocked {
   output "Dell Inc. DELL P2419H GQDLH73" mode 1920x1080 position 0,0
   output eDP-1 mode 1920x1080@60Hz scale 1.2 position 160,1080
