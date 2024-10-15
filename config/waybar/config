@@ -29,7 +29,7 @@
         "format-icons": ["󰔏"]
     },
     "memory": {
-        "format": "{icon} {}%",
+        "format": "{icon} {0}%",
         "format-icons": ["󰍛"]
     },
     "battery": {
@@ -93,7 +93,7 @@
 				"tooltip": false
     },
     "custom/power_usage": {
-        "format": "{icon} {}W",
+        "format": "{icon} {0}W",
         "format-icons": ["󱐋"],
         "exec": "awk '{ printf(\"%.1f\", $1*10^-6) }' /sys/class/power_supply/BAT0/power_now",
         "restart-interval": 3,

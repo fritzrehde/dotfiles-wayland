@@ -69,5 +69,23 @@
       "--line-length",
       "80"
     ],
-
+    "window.autoDetectColorScheme": true,
+    "workbench.preferredLightColorTheme": "Visual Studio Light - C++",
+    "isabelle.home": "/usr/bin/isabelle",
+    "prettifySymbolsMode.substitutions": [
+      {
+        "language": "isabelle",
+        "revealOn": "none",
+        "adjustCursorMovement": true,
+        "prettyCursor": "none",
+        "substitutions": []
+      },
+      {
+        "language": "isabelle-ml",
+        "revealOn": "none",
+        "adjustCursorMovement": true,
+        "prettyCursor": "none",
+        "substitutions": []
+      }],
 }
+
