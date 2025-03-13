@@ -107,7 +107,7 @@ input "type:pointer" {
 # all touchpads
 input "type:touchpad" {
     pointer_accel 0.1
-    # natural_scroll enabled
+    natural_scroll enabled
     scroll_factor 0.5
     tap enabled
 }
