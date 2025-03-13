@@ -107,7 +107,7 @@ input "type:pointer" {
 # all touchpads
 input "type:touchpad" {
     pointer_accel 0.1
-    natural_scroll enabled
+    # natural_scroll enabled
     scroll_factor 0.5
     tap enabled
 }
@@ -120,6 +120,12 @@ input "2:10:TPPS/2_IBM_TrackPoint" {
 # logitech m720 triathlon mouse
 # input "1133:45077:M720_Triathlon_Mouse" {
 # }
+
+# logitech lift vertical mouse
+input "1133:45105:LIFT_Mouse" {
+    pointer_accel 0.7
+    scroll_factor 1.2
+}
 
 # === Keybindings
 
