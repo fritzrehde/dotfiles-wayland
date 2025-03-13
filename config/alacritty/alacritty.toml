@@ -1,6 +1,3 @@
-import = ["~/.config/alacritty/colors.toml"]
-live_config_reload = true
-
 [bell]
 command = "None"
 duration = 0
@@ -47,7 +44,7 @@ mods = "Control"
 [selection]
 semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"
 
-[shell]
+[terminal.shell]
 program = "/bin/zsh"
 
 [window]
@@ -63,3 +60,7 @@ lines = 0
 [window.padding]
 x = 0
 y = 0
+
+[general]
+live_config_reload = true
+import = ["~/.config/alacritty/colors.toml"]
