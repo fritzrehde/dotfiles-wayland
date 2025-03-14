@@ -106,7 +106,7 @@ input "type:pointer" {
 
 # all touchpads
 input "type:touchpad" {
-    pointer_accel 0.1
+    pointer_accel 0.5
     natural_scroll enabled
     scroll_factor 0.5
     tap enabled
@@ -123,7 +123,7 @@ input "2:10:TPPS/2_IBM_TrackPoint" {
 
 # logitech lift vertical mouse
 input "1133:45105:LIFT_Mouse" {
-    pointer_accel 0.7
+    pointer_accel 1
     scroll_factor 1.2
 }
 
@@ -160,10 +160,10 @@ bindsym $mod_alt+Tab exec 'sway-change-focus.py'
 
 # TODO: achieve river behaviour: ratio +/- 10px
 # change window size
-bindsym $mod_alt+$left  resize grow left  10px
-bindsym $mod_alt+$down  resize grow down  10px
-bindsym $mod_alt+$up    resize grow up    10px
-bindsym $mod_alt+$right resize grow right 10px
+bindsym $mod_alt+Shift+$left  resize grow left  10px
+bindsym $mod_alt+Shift+$down  resize grow down  10px
+bindsym $mod_alt+Shift+$up    resize grow up    10px
+bindsym $mod_alt+Shift+$right resize grow right 10px
 
 # bindsym $mod_alt+$left  resize grow width  -10px
 # bindsym $mod_alt+$down  resize grow height -10px
@@ -182,10 +182,10 @@ bindsym $mod_alt+Up move up
 bindsym $mod_alt+Right move right
 
 # move focus around
-bindsym $mod_alt+Shift+$left focus left
-bindsym $mod_alt+Shift+$down focus down
-bindsym $mod_alt+Shift+$up focus up
-bindsym $mod_alt+Shift+$right focus right
+bindsym $mod_alt+$left focus left
+bindsym $mod_alt+$down focus down
+bindsym $mod_alt+$up focus up
+bindsym $mod_alt+$right focus right
 
 
 # == Workspaces

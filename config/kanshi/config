@@ -224,6 +224,6 @@ profile UniDSE8 {
 }
 
 profile DellU3225QE {
-  output "Dell Inc. DELL U3225QE 837MC34" mode 3840x2160@30Hz scale 1.3 position 0,0
+  output "Dell Inc. DELL U3225QE 837MC34" mode 3840x2160@60Hz scale 1.3 position 0,0
   output eDP-1 mode 1920x1080@60Hz scale 1.2 position 675,1666
 }
