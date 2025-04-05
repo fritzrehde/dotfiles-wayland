@@ -12,7 +12,12 @@ profile Projector {
   output eDP-1 mode 1920x1080@60Hz scale 1.2 position 160,1080
 }
 
-profile Home {
+profile HomeDual {
+  output "Dell Inc. DELL U3225QE 837MC34" mode 3840x2160@60Hz scale 1.3 position 1601,0
+  output eDP-1 mode 1920x1080@60Hz scale 1.2 position 0,1461
+}
+
+profile HomeTriple {
   output "Dell Inc. DELL U3225QE 837MC34" mode 3840x2160@60Hz scale 1.3 position 1601,0
   output "Invalid Vendor Codename - RTK ZZX-FHD-HDR demoset-1" mode 1920x1080@60Hz scale 1.2 position 2292,1666
   output eDP-1 mode 1920x1080@60Hz scale 1.2 position 0,1461

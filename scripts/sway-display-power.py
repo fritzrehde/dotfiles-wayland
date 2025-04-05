@@ -6,18 +6,19 @@ from enum import Enum
 import pprint
 import subprocess
 import json
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
 
 
-def pick_one(stdin_lines: List[str]) -> Optional[str]:
+def pick_one(str_to_obj: Dict[str, Any]) -> Optional[Any]:
     result = subprocess.run(
         ["rofi.sh", "default"],
-        input="\n".join(stdin_lines) + "\n",
+        input="\n".join(str_to_obj.keys()) + "\n",
         text=True,
         capture_output=True,
     )
     if result.returncode == 0:
-        return result.stdout.rstrip("\n")
+        selected_str = result.stdout.rstrip("\n")
+        return str_to_obj[selected_str]
     else:
         return None
 
@@ -25,29 +26,25 @@ def pick_one(stdin_lines: List[str]) -> Optional[str]:
 @dataclass
 class Display:
     name: str
+    model: str
     power: bool
 
     def status(self) -> str:
         return f"{self.name}: {"on" if self.power else "off"}"
 
-@dataclass
-class Displays:
-    displays: List[Display]
+    def __str__(self) -> str:
+        return f"{self.name} ({self.model})"
 
-    def names(self) -> List[str]:
-        return [display.name for display in self.displays]
-
-
-def get_all_displays() -> Displays:
+def get_all_displays():
     result = subprocess.run(
         ["swaymsg", "--type", "get_outputs"], capture_output=True, text=True
     )
     displays_json = json.loads(result.stdout)
-    # pprint.pprint(displays_json)
-    return Displays([
-        Display(display["name"], display["power"]) for display in displays_json
-    ])
 
+    for display_json in displays_json:
+        name, model, power = (display_json[field] for field in ("name", "model", "power"))
+        display = Display(name, model, power)
+        yield display
 
 class PowerCommand(Enum):
     On = "on"
@@ -57,11 +54,11 @@ class PowerCommand(Enum):
     def __str__(self):
         return self.value
 
-    def exec(self, display_name: str):
-        subprocess.run(["swaymsg", "output", display_name, "power", str(self)])
+    def exec(self, display: Display):
+        subprocess.run(["swaymsg", "output", display.name, "power", str(self)])
 
 
-all_displays = get_all_displays()
+all_displays = list(get_all_displays())
 
 
 parser = argparse.ArgumentParser(description="Display power commands for Sway")
@@ -69,26 +66,27 @@ parser.add_argument(
     "cmd",
     choices=list(map(str, PowerCommand)) + ["status"],
 )
-parser.add_argument("display_name", choices=all_displays.names() + ["all"], nargs="?")
+parser.add_argument("display_name", choices=[display.name for display in all_displays] + ["all"], nargs="?")
 args = parser.parse_args()
 
 match args.cmd:
     case "status":
-        print(", ".join(map(Display.status, all_displays.displays)))
+        print(", ".join(map(Display.status, all_displays)))
     case power_cmd:
         power_cmd = PowerCommand(power_cmd)
 
         match args.display_name:
             case None:
-                if (display_name := pick_one(all_displays.names())) is not None:
-                    display_names = [display_name]
+                # The user hasn't provided any displays, so let them pick using an interactive menu.
+                if (display_name := pick_one({str(display):display for display in all_displays})) is not None:
+                    picked_displays = [display_name]
                 else:
                     # Exit if no display was picked.
                     exit()
             case "all":
-                display_names = all_displays.names()
+                picked_displays = all_displays
             case display_name:
-                display_names = [display_name]
+                picked_displays = [display_name]
 
-        for display_name in display_names:
+        for display_name in picked_displays:
             power_cmd.exec(display_name)

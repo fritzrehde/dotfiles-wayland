@@ -5,7 +5,7 @@
     "spacing": 15,
     "modules-left": ["sway/workspaces"],
     "modules-center": ["custom/clock"],
-    "modules-right": ["custom/screenrecording", "custom/vpn", "bluetooth", "pulseaudio", "custom/power_usage", "custom/kbd_backlight", "network", "memory", "temperature", "battery"],
+    "modules-right": ["custom/screenrecording", "custom/vpn", "bluetooth", "pulseaudio", "custom/power_usage", "network", "memory", "temperature", "battery"],
     "sway/workspaces": {
         "disable-scroll": true
     },
