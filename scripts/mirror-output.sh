@@ -1,5 +1,6 @@
 #!/bin/sh
 
-output="$(swaymsg -t get_outputs | jq -r '.[] | .name' | rofi.sh -p "mirror")" || exit 0
+if output="$(sway-output.py pick)"; then
+	wl-mirror "$output"
+fi
 
-wl-mirror "$output"

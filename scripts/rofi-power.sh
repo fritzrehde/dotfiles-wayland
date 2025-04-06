@@ -2,7 +2,7 @@
 
 suspend=" Suspend"
 lock=" Lock"
-display_power="󰚥 Displays ($(sway-display-power.py status))"
+display_power="󰚥 Displays ($(sway-output.py status))"
 reboot=" Reboot"
 hibernate=" Hibernate"
 shutdown=" Shutdown"
@@ -11,7 +11,7 @@ night_shift="󰖨 Night Shift (state: $(night-shift.sh state))"
 case "$(printf '%s\n' "$suspend" "$display_power" "$night_shift" "$lock" "$reboot" "$hibernate" "$shutdown" | rofi.sh power -i)" in
 	"$lock") lock-screen.sh --turn-off-display ;;
 	"$suspend") systemctl suspend ;;
-	"$display_power") sway-display-power.py toggle ;;
+	"$display_power") sway-output.py toggle ;;
 	"$reboot") reboot ;;
 	"$hibernate") systemctl hibernate ;;
 	"$shutdown") shutdown now ;;
