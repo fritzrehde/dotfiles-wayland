@@ -17,6 +17,10 @@
     "[java]": {
         "editor.formatOnSave": true
     },
+    "[cpp]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "ms-vscode.cpptools"
+    },
     "[rust]": {
         "editor.formatOnSave": true,
         "editor.defaultFormatter": "rust-lang.rust-analyzer",
@@ -86,6 +90,15 @@
         "adjustCursorMovement": true,
         "prettyCursor": "none",
         "substitutions": []
-      }],
+      }
+    ],
+    "errorLens.enabledDiagnosticLevels": [
+      "error",
+      "warning",
+      "info"
+    ],
+    "[javascript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
 }
 

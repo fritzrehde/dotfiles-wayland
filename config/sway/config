@@ -78,7 +78,7 @@ output * bg ~/.config/wallpaper/wallpaper.jpg fill
 # 2. After resuming from sleep, power on all displays (even if some were powered off before sleeping).
 exec swayidle -w \
     before-sleep 'swaylock -f' \
-    after-resume 'sway-display-power.py on all'
+    after-resume 'sway-output.py on all'
 
 
 # === Input configuration
@@ -311,7 +311,7 @@ bindsym $mod_super+Shift+4 exec 'screenshot.sh select'
 # bindsym XF86AudioNext  exec 'playerctl next'
 
 # turn on/off laptop display
-bindsym XF86Favorites exec 'sway-display-power.py toggle "$laptop_display"'
+bindsym XF86Favorites exec 'sway-output.py toggle "$laptop_display"'
 
 
 # == External Apps
@@ -385,6 +385,9 @@ exec 'transmission-daemon'
 
 # open BROWSER and TERMINAL on startup
 exec --no-startup-id swaymsg 'workspace 1; exec $browser; workspace 2; exec $terminal -e tmux-startup.sh'
+
+# turn all connected displays on
+exec 'sway-output.py on all'
 
 # === Include other config files
 

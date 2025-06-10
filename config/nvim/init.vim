@@ -138,3 +138,21 @@ lua require'colorizer'.setup()
 
 " Rust
 " au BufWritePost *.rs :silent !rustfmt %
+
+
+" markdown code block syntax highlighting
+" syntax on
+filetype plugin indent on
+
+let g:markdown_fenced_languages = [
+      \ 'html',
+      \ 'javascript',
+      \ 'css',
+      \ 'json',
+      \ 'bash=sh',
+      \ 'python',
+      \ 'java',
+      \ 'php',
+      \ 'cpp',
+      \ 'rust',
+      \ ]
