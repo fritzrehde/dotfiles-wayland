@@ -23,6 +23,7 @@ SCRIPTS=$(
 	screenrecording.sh toggle
 	wifi.sh desktop
 	unsw-desk-reservation.py
+	rofi-exec-cmd.sh
 	END
 )
 

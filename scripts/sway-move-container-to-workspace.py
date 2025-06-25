@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # Move focused container to specified workspace, but if desired workspace is already focused, move focused workspace to next output
 

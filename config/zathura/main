@@ -16,7 +16,7 @@ set recolor-darkcolor "#d8dee9"
 map c recolor
 map r reload
 map R rotate
-map y exec 'zathura $FILE'
+map y exec 'zathura "$FILE"'
 
 ### gui
 map m toggle_statusbar
@@ -31,7 +31,7 @@ map = zoom in
 map [fullscreen] c recolor
 map [fullscreen] r reload
 map [fullscreen] R rotate
-map [fullscreen] y exec 'zathura $FILE'
+map [fullscreen] y exec 'zathura "$FILE"'
 
 ## gui
 map [fullscreen] m toggle_statusbar

@@ -27,12 +27,15 @@ set $laptop_display eDP-1
 
 # === Looks
 
-# gaps and border widths
+# gap width
 gaps inner 1
+
+# border of new windows
 default_border pixel 2
+# border of new floating windows
 default_floating_border pixel 2
 
-# gaps and borders are disabled for single containers
+# gaps and borders are disabled for single container on a workspace
 smart_gaps on
 smart_borders on
 
@@ -40,6 +43,12 @@ smart_borders on
 # class            border                  backgr.                 text        indicator               child_border
   client.focused   $color_border_focused   $color_border_focused   $color_grey $color_border_focused   $color_border_focused
   client.unfocused $color_border_unfocused $color_border_unfocused $color_grey $color_border_unfocused $color_border_unfocused
+
+# TODO: title bar text is slightly blurry (maybe font aliasing stuff?)
+# title bar font
+font "Bitstream Vera Sans Mono" 10
+# horizontal and vertical titlebar padding
+titlebar_padding 5 1
 
 
 # === Output configuration
@@ -252,7 +261,7 @@ bindsym $mod_alt+Shift+n splitv
 
 # Switch the current container between different layout styles
 bindsym $mod_alt+Shift+s layout stacking
-bindsym $mod_alt+Shift+t layout tabbed
+bindsym $mod_alt+t layout toggle tabbed split
 bindsym $mod_alt+e layout toggle split
 
 # Toggle the current focus between tiling and floating mode
@@ -262,7 +271,7 @@ bindsym $mod_alt+Shift+space floating toggle
 # bindsym $mod_alt+space focus mode_toggle
 
 # Move focus to the parent container
-# bindsym $mod_alt+a focus parent
+bindsym $mod_alt+a focus parent
 
 
 # == Scratchpad
@@ -327,13 +336,13 @@ bindsym $mod_alt+o       exec 'rofi-calc.sh'
 bindsym $mod_alt+p       exec 'clipboard.sh rofi-paste'
 bindsym $mod_alt+Shift+p exec 'clipboard.sh rofi-copy'
 
-# play media from clipboard in mpv
-bindsym $mod_alt+y        exec 'mpv.sh'
-bindsym $mod_alt+Shift+y  exec 'mpv.sh background'
+# # play media from clipboard in mpv
+# bindsym $mod_alt+y        exec 'mpv.sh'
+# bindsym $mod_alt+Shift+y  exec 'mpv.sh background'
 
-# todo
-bindsym $mod_alt+n  exec 'todo-txt.sh add'
-bindsym $mod_alt+t  exec 'todo-txt.sh list'
+# # todo
+# bindsym $mod_alt+n  exec 'todo-txt.sh add'
+# bindsym $mod_alt+t  exec 'todo-txt.sh list'
 
 
 # === Status Bar
